@@ -1,12 +1,11 @@
 from copy import deepcopy
-from functools import reduce
 
 
 class GameState:
 
     def __init__(self, state=False):
-        self.w = 3
-        self.h = 2
+        self.w = 4
+        self.h = 4
         board = [[0 for x in range(self.h)] for y in range(self.w)]
 
         # init state if nothing is passed in
@@ -54,90 +53,27 @@ class GameState:
 
         # return all board if first turn and position is None
         if not state['positions'][state['turn']]:
-            return [(x, y) for x in range(self.w) for y in range(self.h) if board[x][y] != 1]
+            return [(x, y) for x in range(self.w) for y in range(self.h) if not board[x][y]]
 
         x_pos = state['positions'][state['turn']][0]
         y_pos = state['positions'][state['turn']][1]
 
-        # calculate legal vertical
-        legal_v = []
-        for y in range(y_pos-1, -1, -1):
-            if board[x_pos][y] == 1:
-                break
-            else:
-                legal_v.append((x_pos, y))
+        rays = [(1, 0), (-1, 0), (0, 1), (0, -1),
+                (-1, -1), (-1, 1), (1, -1), (1, 1)]
+        moves = []
 
-        for y in range(y_pos+1, self.h, +1):
-            if board[x_pos][y] == 1:
-                break
-            else:
-                legal_v.append((x_pos, y))
-
-        # calculate legal horizontal
-        legal_h = []
-        for x in range(x_pos-1, -1, -1):
-            if board[x][y_pos] == 1:
-                break
-            else:
-                legal_h.append((x, y_pos))
-
-        for x in range(x_pos+1, self.w, +1):
-            if board[x][y_pos] == 1:
-                break
-            else:
-                legal_h.append((x, y_pos))
-
-        # calculate legal diagonal
-        legal_d = []
-        # Northwest
-        for delta in range(1, max([x_pos+1, y_pos+1])):
-            x = x_pos - delta
-            y = y_pos - delta
-            try:
-                if board[x][y] == 1:
+        for dx, dy in rays:
+            x = x_pos
+            y = y_pos
+            while 0 <= x + dx < self.w and 0 <= y + dy < self.h:
+                x = x + dx
+                y = y + dy
+                if board[x][y]:
                     break
-                if board[x][y] == 0:
-                    legal_d.append((x, y))
-            except:
-                pass
+                else:
+                    moves.append((x, y))
 
-        # Southeast
-        for delta in range(1, max([self.w-x_pos+1, self.h-y_pos+1])):
-            x = x_pos + delta
-            y = y_pos + delta
-            try:
-                if board[x][y] == 1:
-                    break
-                if board[x][y] == 0:
-                    legal_d.append((x, y))
-            except:
-                pass
-
-        # Northeast
-        for delta in range(1, max([x_pos+1, self.h-y_pos+1])):
-            x = x_pos - delta
-            y = y_pos + delta
-            try:
-                if board[x][y] == 1:
-                    break
-                if board[x][y] == 0:
-                    legal_d.append((x, y))
-            except:
-                pass
-
-        # Southwest
-        for delta in range(1, max([self.w-x_pos+1, y_pos+1])):
-            x = x_pos - delta
-            y = y_pos + delta
-            try:
-                if board[x][y] == 1:
-                    break
-                if board[x][y] == 0:
-                    legal_d.append((x, y))
-            except:
-                pass
-
-        return legal_v+legal_h+legal_d
+        return moves
 
     def display_board(self):
         """ Displaying board and positions """
@@ -156,8 +92,8 @@ class GameState:
                     line.append(str(board[x][y]))
 
             line = "|".join(line)
-            line = line.replace("1","x")
-            line = line.replace("0",".")
+            line = line.replace("1", "x")
+            line = line.replace("0", ".")
             print(line)
 
 
@@ -180,3 +116,6 @@ if __name__ == '__main__':
               "player 1 moved there.")
     else:
         print("Everything looks good!")
+
+    g2 = g1.forecast_move((2, 2))
+    print(g2.get_legal_moves())
