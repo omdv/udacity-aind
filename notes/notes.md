@@ -9,8 +9,8 @@
 
 ## Week 1 - Lesson 2 (Setting up environment)
 * Math refresher (optional)
-..* [Udacity linear algebra refresher](https://classroom.udacity.com/courses/ud953)
-..* Lessons 1, 3 and 6 of [Udacity Intro to Algos](https://www.udacity.com/course/intro-to-algorithms--cs215)
+  * [Udacity linear algebra refresher](https://classroom.udacity.com/courses/ud953)
+  * Lessons 1, 3 and 6 of [Udacity Intro to Algos](https://www.udacity.com/course/intro-to-algorithms--cs215)
 
 - [x] Udacity project assistant?
 
@@ -48,5 +48,16 @@
 * [Blog post by Peter Norvig](http://norvig.com/sudoku.html)
 * Encoding the problem, coordinates, peers based on the rules we want to implement later
 * Techniques:
-..* Elimination
-..* Only choice (i.e. in 3x3 square)
+  * Elimination
+  * Only choice (i.e. in 3x3 square)
+
+## Week 1 - Lesson 6 (Environment setup)
+* Ended up installing pyenv to manage python installations
+* pyenv virtualenv wrapper allows to activate conda environments
+
+## Sudoku Project Summary
+* Constraint propagation for heuristics
+* Search for complex cases (depth first search)
+
+## Week 2 - Lesson 8 (Playing Isolation game)
+* Book of opening moves. How to choose best opening automatically - minmax algorithm.
