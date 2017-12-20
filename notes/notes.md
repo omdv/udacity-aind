@@ -61,3 +61,8 @@
 
 ## Week 2 - Lesson 8 (Playing Isolation game)
 * Book of opening moves. How to choose best opening automatically - minmax algorithm.
+* Min and max levels - our bot is trying to maximize his chances and opponent always plays perfectly to minimize it.
+* Branching factor and depth of the search tree to estimate the time required to solve the game
+* Typically b^d is too large to completely explore the whole tree
+* Depth-limited search to estimate the max-depth for a given average branching factor to have acceptable "wait time"
+* Start from the bottom of the tree. For each max node pick the maximum value along the child nodes, and vice-versa.

@@ -4,8 +4,8 @@ from copy import deepcopy
 class GameState:
 
     def __init__(self, state=False):
-        self.w = 4
-        self.h = 4
+        self.w = 3
+        self.h = 2
         board = [[0 for x in range(self.h)] for y in range(self.w)]
 
         # init state if nothing is passed in
@@ -31,6 +31,11 @@ class GameState:
             The target position for the active player's next move
         """
         state = deepcopy(self.state)
+
+        if move not in self.get_legal_moves():
+            print("Illegal move {}".format(move))
+            return self.__class__(state)
+
         state['board'][move[0]][move[1]] = 1
         state['positions'][state['turn']] = move
         state['turn'] = 1 - state['turn']
@@ -97,6 +102,58 @@ class GameState:
             print(line)
 
 
+def terminal_test(gameState):
+    """ Return True if the game is over for the active player
+    and False otherwise.
+    """
+    if gameState.get_legal_moves() == []:
+        return True
+    else:
+        return False
+
+
+def min_value(gameState):
+    """ Return the value for a win (+1) if the game is over,
+    otherwise return the minimum value over all legal child
+    nodes.
+    """
+    if terminal_test(gameState):
+        return +1
+
+    values = []
+    for _m in gameState.get_legal_moves():
+        _g = gameState.forecast_move(_m)
+        if _g.state['turn']:
+            _v = max_value(_g)
+            print("Call max")
+        else:
+            _v = min_value(_g)
+            print("Call min")
+        values.append(_v)
+    return min(set(values))
+
+
+def max_value(gameState):
+    """ Return the value for a loss (-1) if the game is over,
+    otherwise return the maximum value over all legal child
+    nodes.
+    """
+    if terminal_test(gameState):
+        return -1
+
+    values = []
+    for _m in gameState.get_legal_moves():
+        _g = gameState.forecast_move(_m)
+        if _g.state['turn']:
+            _v = max_value(_g)
+            print("Call max")
+        else:
+            _v = min_value(_g)
+            print("Call min")
+        values.append(_v)
+    return max(set(values))
+
+
 if __name__ == '__main__':
 
     print("Creating empty game board...")
@@ -117,5 +174,7 @@ if __name__ == '__main__':
     else:
         print("Everything looks good!")
 
-    g2 = g1.forecast_move((2, 2))
-    print(g2.get_legal_moves())
+    g2 = g1.forecast_move((1, 1))
+    g3 = g2.forecast_move((2, 0))
+    g4 = g3.forecast_move((0, 1))
+    # g5 = g4.forecast_move((0, 1))
