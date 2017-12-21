@@ -66,3 +66,15 @@
 * Typically b^d is too large to completely explore the whole tree
 * Depth-limited search to estimate the max-depth for a given average branching factor to have acceptable "wait time"
 * Start from the bottom of the tree. For each max node pick the maximum value along the child nodes, and vice-versa.
+* Quiescent search - sensitivity analysis as to how results change based on how many level limitations we have. Choose the one after which results are stable.
+
+## Week 2 - Lesson 9 (Advanced Game Playing)
+* Iterative deepening - include next level consideration only if time allows
+* Depth of possible search with ID may vary with branching factors and be different in different phases of the game
+* Horizon effect
+* Explore other evaluation functions and choose best for the game
+* Alpha-Beta pruning - ignore subtrees which do not change results at higher tree level.
+* Tips for 5x5 Isolation agent - symmetry, book of opening moves, reflection, separation, order nodes correspondingly to optimize pruning
+* Multi-player isolation - no minimax, propagate values based on each players selection at every level
+* For probabilistic games just add a probability for each branch and do minimax with probability accounted for
+
