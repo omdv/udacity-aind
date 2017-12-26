@@ -40,8 +40,9 @@ def custom_score(game, player):
     if game.is_winner(player):
         return float("inf")
 
-    my_moves = float(len(game.get_legal_moves(player)))
-    return my_moves
+    my_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return float(my_moves - 2*opp_moves)
 
 
 def custom_score_2(game, player):
@@ -74,7 +75,16 @@ def custom_score_2(game, player):
 
     my_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    return float(my_moves - 2*opp_moves)
+
+    w, h = game.width / 2., game.height / 2.
+    y_p, x_p = game.get_player_location(player)
+    y_o, x_o = game.get_player_location(game.get_opponent(player))
+
+    dist_center_p = float((h - y_p)**2 + (w - x_p)**2)
+    dist_center_o = float((h - y_o)**2 + (w - x_o)**2)
+    dist_players = float((y_p - y_o)**2 + (x_p - x_o)**2)
+
+    return float(my_moves - 2*opp_moves + dist_players)
 
 
 def custom_score_3(game, player):
@@ -109,9 +119,14 @@ def custom_score_3(game, player):
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
 
     w, h = game.width / 2., game.height / 2.
-    y, x = game.get_player_location(player)
-    dist_center = float((h - y)**2 + (w - x)**2)
-    return float(my_moves - 2.2*opp_moves)
+    y_p, x_p = game.get_player_location(player)
+    y_o, x_o = game.get_player_location(game.get_opponent(player))
+
+    dist_center_p = float((h - y_p)**2 + (w - x_p)**2)
+    dist_center_o = float((h - y_o)**2 + (w - x_o)**2)
+    dist_players = float((y_p - y_o)**2 + (x_p - x_o)**2)
+
+    return float(my_moves - 2*opp_moves - dist_center_p)
 
 
 class IsolationPlayer:
@@ -149,6 +164,14 @@ class MinimaxPlayer(IsolationPlayer):
     minimax to return a good move before the search time limit expires.
     """
 
+    # book of opening moves
+    def opening_book(self, game):
+        moves = game.move_count
+        if moves == 0:
+            # provides ~5% by itself
+            return (game.width // 2, game.height // 2)
+        return False
+
     def get_move(self, game, time_left):
         """Search for the best move from the available legal moves and return a
         result before the time limit expires.
@@ -183,15 +206,15 @@ class MinimaxPlayer(IsolationPlayer):
         # in case the search fails due to timeout
         best_move = (-1, -1)
 
-        # opening book section
-        if game.move_count == 0:
-            best_move = (game.width // 2, game.height // 2)
-        else:
-            try:
-                return self.minimax(game, self.search_depth)
-            except SearchTimeout:
-                moves = game.get_legal_moves()
-                return moves[random.randint(len(moves)-1)]
+        # opening book
+        opening = self.opening_book(game)
+        if opening:
+            return opening
+
+        try:
+            return self.minimax(game, self.search_depth)
+        except SearchTimeout:
+            pass
 
         # Return the best move from the last completed search iteration
         return best_move
@@ -253,32 +276,32 @@ class MinimaxPlayer(IsolationPlayer):
 
         return best_move
 
-    # min value
-    def min_value(self, game, depth, depth_limit):
-        if self.time_left() < self.TIMER_THRESHOLD:
-            raise SearchTimeout()
-
-        depth += 1
-        if depth == depth_limit:
-            return self.score(game, self)
-
-        v = float("inf")
-        for m in game.get_legal_moves():
-            v = min(v, self.max_value(game.forecast_move(m), depth, depth_limit))
-        return v
-
     # max value
-    def max_value(self, game, depth, depth_limit):
+    def max_value(self, game, depth, d_limit):
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
         depth += 1
-        if depth == depth_limit:
+        if depth == d_limit:
             return self.score(game, self)
 
         v = float("-inf")
         for m in game.get_legal_moves():
-            v = max(v, self.min_value(game.forecast_move(m), depth, depth_limit))
+            v = max(v, self.min_value(game.forecast_move(m), depth, d_limit))
+        return v
+
+    # min value
+    def min_value(self, game, depth, d_limit):
+        if self.time_left() < self.TIMER_THRESHOLD:
+            raise SearchTimeout()
+
+        depth += 1
+        if depth == d_limit:
+            return self.score(game, self)
+
+        v = float("inf")
+        for m in game.get_legal_moves():
+            v = min(v, self.max_value(game.forecast_move(m), depth, d_limit))
         return v
 
 
@@ -287,6 +310,20 @@ class AlphaBetaPlayer(IsolationPlayer):
     search with alpha-beta pruning. You must finish and test this player to
     make sure it returns a good move before the search time limit expires.
     """
+
+    # def __init__(self, search_depth=3, score_fn=custom_score, timeout=10.):
+    #     IsolationPlayer.__init__(self, search_depth, score_fn, timeout)
+    #     self.depths = []
+    #     self.legal_moves = []
+    #     self.utility = {}
+
+    # book of opening moves
+    def opening_book(self, game):
+        moves = game.move_count
+        # central move first
+        if moves == 0:
+            return (game.width // 2, game.height // 2)
+        return False
 
     def get_move(self, game, time_left):
         """Search for the best move from the available legal moves and return a
@@ -319,36 +356,40 @@ class AlphaBetaPlayer(IsolationPlayer):
             (-1, -1) if there are no available legal moves.
         """
         self.time_left = time_left
+        self.TIMER_THRESHOLD = 15
+        depth_limit = 0
 
         # Initialize the best move so that this function returns something
         # in case the search fails due to timeout
         best_move = (-1, -1)
-        depth = 0
 
-        # opening book
-        opening = self.opening_book(game)
-        if opening:
-            return opening
+        # # opening book moves
+        # opening = self.opening_book(game)
+        # if opening:
+        #     self.depths.append(depth_limit)
+        #     self.legal_moves.append(len(game.get_legal_moves()))
+        #     return opening
 
         # main cycle
         try:
-            while self.time_left() > 0:
-                depth += 1
-                best_move = self.alphabeta(game, depth)
+            while depth_limit < len(game.get_blank_spaces()):
+                best_move = self.alphabeta(game, depth_limit)
+                depth_limit += 1
+            # best_moves.append[best_move]
         except SearchTimeout:
             pass
 
+        # graceful forfeit
+        legal_moves = game.get_legal_moves()
+        if (best_move not in legal_moves) & (len(legal_moves) > 0):
+            best_move = legal_moves[random.randint(0, len(legal_moves) - 1)]
+
+        # # save for analysis purposes
+        # self.depths.append(depth_limit)
+        # self.legal_moves.append(len(game.get_legal_moves()))
+
         # Return the best move from the last completed search iteration
         return best_move
-
-    # book of opening moves
-    def opening_book(self, game):
-        moves = game.move_count
-        if moves == 0:
-            # provides ~5% by itself
-            return (game.width // 2, game.height // 2)
-        else:
-            return False
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf")):
         """Implement depth-limited minimax search with alpha-beta pruning as
@@ -402,53 +443,87 @@ class AlphaBetaPlayer(IsolationPlayer):
         best_move = (-1, -1)
 
         # search
-        v = float("-inf")
-        for m in game.get_legal_moves():
-            move = game.forecast_move(m)
-            new_v = self.min_ab(move, alpha, beta, 0, depth)
-            if new_v > v:
-                best_move = m
-                v = new_v
-
-        # graceful losing - no forfeiting
-        if (v == float("-inf")) & (len(game.get_legal_moves()) > 0):
-            moves = game.get_legal_moves()
-            best_move = moves[random.randint(0, len(moves)-1)]
+        _v, best_move = self.max_ab(game, float("-inf"), float("+inf"), 0, depth)
 
         return best_move
 
     # min value
-    def min_ab(self, game, alpha, beta, depth, depth_limit):
+    def min_ab(self, game, alpha, beta, depth, d_limit):
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
+        if depth >= d_limit:
+            return self.score(game, self), (-1, -1)
         depth += 1
-        if depth == depth_limit:
-            return self.score(game, self)
 
         v = float("inf")
+        move = (-1, -1)
+
         for m in game.get_legal_moves():
-            move = game.forecast_move(m)
-            v = min(v, self.max_ab(move, alpha, beta, depth, depth_limit))
+            _g = game.forecast_move(m)
+            _v, _ = self.max_ab(_g, alpha, beta, depth, d_limit)
+            if _v < v:
+                v = _v
+                move = m
+
             if v <= alpha:
-                return v
+                return v, move
             beta = min(beta, v)
-        return v
+        return v, move
 
     # max value
-    def max_ab(self, game, alpha, beta, depth, depth_limit):
+    def max_ab(self, game, alpha, beta, depth, d_limit):
         if self.time_left() < self.TIMER_THRESHOLD:
             raise SearchTimeout()
 
+        if depth >= d_limit:
+            return self.score(game, self), (-1, -1)
         depth += 1
-        if depth == depth_limit:
-            return self.score(game, self)
 
         v = float("-inf")
+        move = (-1, -1)
+
         for m in game.get_legal_moves():
-            move = game.forecast_move(m)
-            v = max(v, self.min_ab(move, alpha, beta, depth, depth_limit))
+            _g = game.forecast_move(m)
+            _v, _m = self.min_ab(_g, alpha, beta, depth, d_limit)
+            if _v > v:
+                v = _v
+                move = m
+
             if v >= beta:
-                return v
+                return v, move
             alpha = max(alpha, v)
-        return v
+        return v, move
+
+
+# used for testing
+if __name__ == "__main__":
+    from isolation import Board
+
+    p1 = AlphaBetaPlayer(score_fn=custom_score_2)
+    p2 = MinimaxPlayer(score_fn=custom_score_2)
+    game = Board(p1, p2, width=7, height=7)
+    winner, history, _ = game.play()
+
+    # game.apply_move((1, 2))
+    # game.apply_move((2, 2))
+    # game.apply_move((2, 3))
+    # game.apply_move((2, 4))
+    # game.apply_move((3, 1))
+    # game.apply_move((3, 3))
+    # game.apply_move((3, 4))
+    # game.apply_move((3, 6))
+    # game.apply_move((4, 3))
+    # game.apply_move((4, 4))
+    # game.apply_move((4, 5))
+    # game.apply_move((5, 2))
+    # game.apply_move((5, 3))
+    # game.apply_move((5, 4))
+    # game.apply_move((5, 6))
+    # game.apply_move((6, 2))
+    # game.apply_move((6, 4))
+    # game.apply_move((7, 4))
+    # game.apply_move((6, 6))
+    # game.apply_move((3, 5))
+
+    # p1.alphabeta(game, 2)
