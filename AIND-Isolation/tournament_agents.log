@@ -1,0 +1,203 @@
+                        *************************
+                             Playing Matches
+                        *************************
+
+                              Sample 1
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9    12  |   8    10  |  10    11  |   9     9  |  11    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        60.0%        50.0%        55.0%        45.0%        50.0%
+
+There were 4.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+                              Sample 2
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    8  |  12    11  |   9    10  |  10     8  |  12     9  |  11     8  |  12
+--------------------------------------------------------------------------
+           Win Rate:      40.0%        55.0%        50.0%        40.0%        45.0%        40.0%
+
+There were 3.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+                              Sample 3
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     9  |  11    10  |  10     9  |  11     9  |  11    12  |   8
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        45.0%        50.0%        45.0%        45.0%        60.0%
+
+There were 2.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+                              Sample 4
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    13  |   7    10  |  10     9  |  11    11  |   9     9  |  11
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        65.0%        50.0%        45.0%        55.0%        45.0%
+
+                              Sample 5
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9    10  |  10    10  |  10    10  |  10     9  |  11    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        50.0%        50.0%        50.0%        45.0%        50.0%
+
+                              Sample 6
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   12  |   8    10  |  10    13  |   7    11  |   9     9  |  11     9  |  11
+--------------------------------------------------------------------------
+           Win Rate:      60.0%        50.0%        65.0%        55.0%        45.0%        45.0%
+
+                              Sample 7
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11    13  |   7    12  |   8    10  |  10     9  |  11     7  |  13
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        65.0%        60.0%        50.0%        45.0%        35.0%
+
+                              Sample 8
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9    10  |  10    12  |   8    10  |  10    11  |   9    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        50.0%        60.0%        50.0%        55.0%        50.0%
+
+                              Sample 9
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11     9  |  11    11  |   9     6  |  14     8  |  12     9  |  11
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        45.0%        55.0%        30.0%        40.0%        45.0%
+
+                              Sample 10
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10     8  |  12    10  |  10     7  |  13    11  |   9    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        40.0%        50.0%        35.0%        55.0%        50.0%
+
+                              Sample 11
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    10  |  10     8  |  12    11  |   9     9  |  11    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        50.0%        40.0%        55.0%        45.0%        50.0%
+
+                              Sample 12
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9    11  |   9    10  |  10    10  |  10    11  |   9    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        55.0%        50.0%        50.0%        55.0%        50.0%
+
+                              Sample 13
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     7  |  13    10  |  10     9  |  11    11  |   9     5  |  15
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        35.0%        50.0%        45.0%        55.0%        25.0%
+
+                              Sample 14
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11    10  |  10    10  |  10    12  |   8     6  |  14     9  |  11
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        50.0%        50.0%        60.0%        30.0%        45.0%
+
+                              Sample 15
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10     9  |  11    11  |   9    10  |  10    10  |  10     8  |  12
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        45.0%        55.0%        50.0%        50.0%        40.0%
+
+                              Sample 16
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    8  |  12    11  |   9    11  |   9    10  |  10    10  |  10     8  |  12
+--------------------------------------------------------------------------
+           Win Rate:      40.0%        55.0%        55.0%        50.0%        50.0%        40.0%
+
+                              Sample 17
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    13  |   7     8  |  12    10  |  10    10  |  10    12  |   8
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        65.0%        40.0%        50.0%        50.0%        60.0%
+
+                              Sample 18
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     9  |  11     9  |  11    10  |  10    10  |  10    11  |   9
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        45.0%        45.0%        50.0%        50.0%        55.0%
+
+                              Sample 19
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    10  |  10    10  |  10     8  |  12    10  |  10     8  |  12
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        50.0%        50.0%        40.0%        50.0%        40.0%
+
+                              Sample 20
+--------------------------------------------------------------------------
+
+ Match #   Opponent     AB_Custom   AB_Custom_2  AB_Custom_3  AB_Custom_4  AB_Custom_5  AB_Improved
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11     9  |  11    10  |  10    10  |  10    10  |  10    10  |  10
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        45.0%        50.0%        50.0%        50.0%        50.0%
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        *************************
+                           Statistical testing
+                        *************************
+                         Agent |       mean |        std |    p-value | different?
+                     AB_Custom |      1.005 |      0.107 |     0.0803 |      False
+                   AB_Custom_2 |      1.020 |      0.160 |     0.0758 |      False
+                   AB_Custom_3 |      1.025 |      0.118 |     0.0356 |       True
+                   AB_Custom_4 |      0.955 |      0.140 |     0.5429 |      False
+                   AB_Custom_5 |      0.960 |      0.120 |     0.4522 |      False
+                   AB_Improved |      0.925 |      0.161 |     1.0000 |      False

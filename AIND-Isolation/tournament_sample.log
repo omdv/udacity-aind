@@ -1,0 +1,194 @@
+                              Sample 1
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    10  |  10    12  |   8     2  |  18
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        50.0%        60.0%        10.0%
+
+                              Sample 2
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11     7  |  13     9  |  11     1  |  19
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        35.0%        45.0%        5.0%
+
+                              Sample 3
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11     8  |  12    11  |   9     2  |  18
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        40.0%        55.0%        10.0%
+
+                              Sample 4
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    8  |  12     9  |  11    10  |  10     2  |  18
+--------------------------------------------------------------------------
+           Win Rate:      40.0%        45.0%        50.0%        10.0%
+
+                              Sample 5
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     8  |  12     9  |  11     1  |  19
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        40.0%        45.0%        5.0%
+
+                              Sample 6
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    9  |  11    10  |  10    11  |   9     3  |  17
+--------------------------------------------------------------------------
+           Win Rate:      45.0%        50.0%        55.0%        15.0%
+
+                              Sample 7
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   12  |   8    10  |  10    10  |  10     4  |  16
+--------------------------------------------------------------------------
+           Win Rate:      60.0%        50.0%        50.0%        20.0%
+
+                              Sample 8
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     7  |  13    10  |  10     1  |  19
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        35.0%        50.0%        5.0%
+
+                              Sample 9
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    8  |  12     8  |  12     9  |  11     0  |  20
+--------------------------------------------------------------------------
+           Win Rate:      40.0%        40.0%        45.0%        0.0%
+
+                              Sample 10
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    8  |  12    10  |  10    10  |  10     0  |  20
+--------------------------------------------------------------------------
+           Win Rate:      40.0%        50.0%        50.0%        0.0%
+
+                              Sample 11
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    10  |  10    10  |  10     1  |  19
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        50.0%        50.0%        5.0%
+
+                              Sample 12
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved    8  |  12     8  |  12     9  |  11     2  |  18
+--------------------------------------------------------------------------
+           Win Rate:      40.0%        40.0%        45.0%        10.0%
+
+                              Sample 13
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     9  |  11     9  |  11     0  |  20
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        45.0%        45.0%        0.0%
+
+                              Sample 14
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    11  |   9     8  |  12     1  |  19
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        55.0%        40.0%        5.0%
+
+There were 1.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+                              Sample 15
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   11  |   9     9  |  11    11  |   9     3  |  17
+--------------------------------------------------------------------------
+           Win Rate:      55.0%        45.0%        55.0%        15.0%
+
+There were 3.0 timeouts during the tournament -- make sure your agent handles search timeout correctly, and consider increasing the timeout margin for your agent.
+
+
+                              Sample 16
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10    11  |   9     9  |  11     1  |  19
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        55.0%        45.0%        5.0%
+
+                              Sample 17
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10     8  |  12    12  |   8     0  |  20
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        40.0%        60.0%        0.0%
+
+                              Sample 18
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   10  |  10     9  |  11     9  |  11     0  |  20
+--------------------------------------------------------------------------
+           Win Rate:      50.0%        45.0%        45.0%        0.0%
+
+                              Sample 19
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   13  |   7     7  |  13    10  |  10     0  |  20
+--------------------------------------------------------------------------
+           Win Rate:      65.0%        35.0%        50.0%        0.0%
+
+                              Sample 20
+--------------------------------------------------------------------------
+
+ Match #   Opponent      AB_Open     AB_Center   AB_Improved    Random
+                        Won | Lost   Won | Lost   Won | Lost   Won | Lost
+    1     AB_Improved   13  |   7     9  |  11    13  |   7     2  |  18
+--------------------------------------------------------------------------
+           Win Rate:      65.0%        45.0%        65.0%        10.0%
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        *************************
+                           Statistical testing
+                        *************************
+                         Agent |       mean |    p-value | different?
+                       AB_Open |      1.005 |     1.0000 |      False
+                     AB_Center |      0.890 |     0.0066 |       True
+                   AB_Improved |      1.005 |     1.0000 |      False
+                        Random |      0.130 |     0.0000 |       True
