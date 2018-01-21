@@ -78,3 +78,29 @@
 * Multi-player isolation - no minimax, propagate values based on each players selection at every level
 * For probabilistic games just add a probability for each branch and do minimax with probability accounted for
 
+
+## Week 3 - Lesson 11 (Search)
+* Definition of a problem (states, actions, goals, costs, etc)
+* Frontier, explored region and unexplored region
+* Tree search methods are similar, the difference is in how you choose the action
+* Breadth-first search - shortest path always, first found may suffice and be a solution (one of)
+* Uniform cost (or cheapest first) search - continues to search until the path is removed from frontier, guaranteed
+* Depth-first search - expand the longest path first, not guaranteed to find the optimal path
+* All the above algos are non-efficient time-wise as they explore in all directions, need additional knowledge
+* The best knowledge for search is distance to the goal
+* Greedy best-first search uses the distance, effective but cannot handle barriers
+* A* - minimum of g+h (path cost + distance of the final state of the path to the distance to the goal), could also be called
+best estimated total path cost first
+* For Search to work domain should have some characteristics: fully observable, known (know available actions), discrete (a limited set of actions to choose from), deterministic (know the result of taking an action), static (only our actions change the world)
+* To implement we define node with state, action, cost and parent, frontier is defined as set, should be able to remove members, add new and do a membership test, priority queue.
+
+## Week 4 - Lesson 12 (Simulated Annealing)
+* Techniques to solve very complex problems by trying simple heuristics first
+* Example of travelling salesman of n-queens problems - initiate randomly, move pieces with largest number of conflicts and iterate
+* The issue is the local maxima/minima, solution is to do a random restart
+* Random restart with many attempts. Use Taboo search to avoid areas which were explored
+* Step-size selection - typical for optimization problems
+* Simulated annealing - "heating" and "cooling" the system to achieve the "minimum energy level" or global minima/maxima. Heating in this context means increasing randomness and cooling vice versa.
+* Local beam search - variation of random restart but with N particles, which further exchange information between them by being compared. We choose only the best.
+* Generic algorithms - crossovers, mutation, etc
+
