@@ -104,3 +104,14 @@ best estimated total path cost first
 * Local beam search - variation of random restart but with N particles, which further exchange information between them by being compared. We choose only the best.
 * Generic algorithms - crossovers, mutation, etc
 
+## Week 5 - Lesson 13 (Constraint Satisfaction)
+* Constraint optimization techniques - backtracking optimization and forward checking.
+* Some heuristics may be applied to backtracking, such as least constraining value, minimum remaining values
+* Structured CSPs - tricks to divide problem into smaller pieces or acyclic graphs to reduce complexity
+
+## Week 6 - Lesson 14 (Login and Reasoning)
+* Peter Norvig's vision of future directions for planning algorithms: learning from examples, transfer learning, interactive planning (human + machine), explaining things in terms human can understand
+* Propositional logic to define models between events/variables. Truth tables.
+* Limitations of P.L. - can handle only binary values, can't handle uncertainty, can't cover physical world objects, no shortcuts to cover many things happening at the same time
+* First order logic extent P.L. as it introduces relations, objects and functions which can describe the world, while P.L. had only facts
+* FOL models contain constants, where multiple constants can refer to the same object and functions, which map objects to objects
