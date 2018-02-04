@@ -115,3 +115,18 @@ best estimated total path cost first
 * Limitations of P.L. - can handle only binary values, can't handle uncertainty, can't cover physical world objects, no shortcuts to cover many things happening at the same time
 * First order logic extent P.L. as it introduces relations, objects and functions which can describe the world, while P.L. had only facts
 * FOL models contain constants, where multiple constants can refer to the same object and functions, which map objects to objects
+
+## Week 7 - Lesson 15 (Planning)
+* Planning requires some interaction with the environment during execution phase
+* In stochastic worlds it is helpful to operate in the space of belief states
+* Conformant plans require no information about the world
+* Partially observable world
+* In stochastic environments actions tend to increase the uncertainty, while observations tend to bring it back down
+* Classical planning representation: state space, world state, belief state, action schema (part 12)
+* Progression state search
+* Our classical planning representation allows us to use regression search
+* Regression vs progression - depends on the goal
+* Plan space search - used to be popular in 1990s.
+* Forward search is more popular now, because it allows to come up with better heuristics
+* The classical planning representation allows to do automatic heuristics search by relaxing some of conditions automatically and search through it
+* Situation Calculus - can't apply Classical Planning to all cargo. S.C. allows it with First Order Logic
