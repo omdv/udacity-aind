@@ -24,23 +24,41 @@ Problem 3 | 12 / 14663 / 48.3s | 392 / 408 / 1.95s | 12 / 18236 / 60.37s
 
 In all cases both BFS and UCS managed to find the optimal solution, although BFS did it with slightly less node expansions in all cases. DFS didn't manage to converge on the optimal solution in neither of problems, it was however the fastest among all three. It agrees well with the lectures is that BFS and UCS are both guaranteed to find the best solution, although at the expense of more expansions and longer compute time. DFS on contrary returns the first path reaching a goal it manages to find, so it does so in only few expansions, however the path is not guaranteed to be the optimal one and we see it in all three cases.
 
-## Agents with Heuristics
+## Informed agents
 
-The table below summarizes the results for A* agent with two different heuristics. One is with automatically generated ignore preconditions heuristics, which calculates the number of actions required to achieve all remaining goals, ignoring all positive and negative preconditions. TO BE CONTINUED....
+The table below summarizes the results for A* agent with two different heuristics. One is with automatically generated ignore preconditions heuristics, which calculates the number of actions required to achieve all remaining goals, ignoring all positive and negative preconditions. The second one is the level sum heuristics using the planning graph.
 
-Problem | Ignore preconditions | ...
---- | --- | --- | --- 
-Problem 1 | 6 / 41 / 0.04s | --- | ---
-Problem 2 | 9 / 1450 / 4.35s | --- | ---
-Problem 3 | 12 /5040 / 16.91s | --- | ---
+Problem | Ignore preconditions | PG level sum
+--- | --- | ---
+Problem 1 | 6 / 41 / 0.04s | 6 / 11 / 0.91s
+Problem 2 | 9 / 1450 / 4.35s | 9 / 86 / 196.6s 
+Problem 3 | 12 / 5040 / 16.91s | 12 / 315 / 934s
 
 One may see that A* with ignore preconditions converges on the optimal path and does so in about two times less nodes extensions and two times faster for problems 2 and 3. The heuristics, albeit quite simple, helps to rate possible nodes and their distance from the goal state, thus allows reducing the number of expansions and computational time.
 
+Planning graph level sum heuristics provides the smallest number of node
+expansions, at least one order of magnitude less than A* and more comparing to
+uninformed agents. The run time is quite long, however, which is the result of
+a fairly complex algorithm. It may likely be improved quite a bit.
 
+## Summary
 
+Five different agents were considered for each of the three problems - three
+uninformed and two informed with heuristics. All agents except depth-first
+search managed to converge on the optimal solution, which is expected. DFS
+provided the fastest run time and one of the smallest number of node
+expansions, which was also expected. Breadth-first search had the best overall
+performance among uninformed agents.
 
+Switching to informed agents with heuristics reduced the number of node
+expansions significantly. A* with relatively simple automatically generated
+"ignore preconditions" heuristics reduced the number of node expansions by
+three times. The level sum heuristics based on planning graph provided an order
+of magnitude improvement in node expansions at the expense of the run time, as
+it is spent on constructing the approximation of the search tree.
+
+\pagebreak
 ## Appendix A - Raw results for uninformed agents
-
 
 ### Case P1-S1
 ```
@@ -265,4 +283,40 @@ Fly(P1, ATL, JFK)
 Unload(C3, P1, JFK)
 Unload(C2, P2, SFO)
 Unload(C1, P1, JFK)
+```
+
+### Case P1-S10
+```
+python run_search.py -p 1 -s 10
+
+Solving Air Cargo Problem 1 using astar_search with h_pg_levelsum...
+
+Expansions   Goal Tests   New Nodes
+    11          13          50
+
+Plan length: 6  Time elapsed in seconds: 0.9059329880401492
+```
+
+### Case P2-S10
+```
+python run_search.py -p 2 -s 10
+
+Solving Air Cargo Problem 2 using astar_search with h_pg_levelsum...
+
+Expansions   Goal Tests   New Nodes
+    86          88         841
+
+Plan length: 9  Time elapsed in seconds: 196.56146006798372
+```
+
+### Case P3-S10
+```
+python run_search.py -p 3 -s 10
+
+Solving Air Cargo Problem 3 using astar_search with h_pg_levelsum...
+
+Expansions   Goal Tests   New Nodes
+   315         317         2902
+
+Plan length: 12  Time elapsed in seconds: 934.1108886679867
 ```
