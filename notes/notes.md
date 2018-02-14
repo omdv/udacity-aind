@@ -130,3 +130,17 @@ best estimated total path cost first
 * Forward search is more popular now, because it allows to come up with better heuristics
 * The classical planning representation allows to do automatic heuristics search by relaxing some of conditions automatically and search through it
 * Situation Calculus - can't apply Classical Planning to all cargo. S.C. allows it with First Order Logic
+
+## Week 8 - Lesson 16 (Probabilities & Bayes Networks)
+* Bayes networks are the building blocks of more advanced AI techniques, like particle filters, Kalman, etc
+* Conditional probabilities refresher
+
+## Week 9 - Bayes Nets
+* Bayes nets statement:
+ * We know the prior about A - P(A), but A is not observable
+ * B is observable and we know P(B|A) and P(B| notA)
+ * We need to do the diagnostic reasoning, i.e. P(A|B) and P(A| notB)
+* Two test cancer quiz:
+ * P(C)=0.01, P(+|C)=0.9, P(+,!C)=0.8, P(C|++)?
+ * Using [tabular approach](http://www.greenteapress.com/thinkbayes/thinkbayes.pdf) is the easiest
+ * P(++|C) = P(+|C) * P(+|C) assuming conditional independence
