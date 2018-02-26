@@ -135,7 +135,7 @@ best estimated total path cost first
 * Bayes networks are the building blocks of more advanced AI techniques, like particle filters, Kalman, etc
 * Conditional probabilities refresher
 
-## Week 9 - Bayes Nets
+## Week 9 - Lesson 17 Bayes Nets
 * Bayes nets statement:
  * We know the prior about A - P(A), but A is not observable
  * B is observable and we know P(B|A) and P(B| notA)
@@ -144,3 +144,27 @@ best estimated total path cost first
  * P(C)=0.01, P(+|C)=0.9, P(+,!C)=0.8, P(C|++)?
  * Using [tabular approach](http://www.greenteapress.com/thinkbayes/thinkbayes.pdf) is the easiest
  * P(++|C) = P(+|C) * P(+|C) assuming conditional independence
+* Other techniques - conditional independence, total probability conditioned on 1
+* Explaining away - if there is an effect explained by multiple causes and one cause is already observed then it is less likely that other causes had an effect
+* Complex conditional probabilities like P (A | B,C) can be expanded using simple Bayes rule, i.e. P(A|B) = P(B|A)P(A)/P(B) where all variables are given C, i.e. p(A|B,C) = p(B|A,C)p(A|C)/p(B|C)
+* Bayes nets use the graph representation which allows to represent complex networks with small number of joint probability distributions
+* D-separation for independence, explain away may bring dependence into a pair of previously independent variables
+
+## Week 10 - Lesson 18 Inference in Bayes Nets (Exact inference)
+* Evidence, query and hidden variables
+* We are looking for probability of one or more query variables given some values for one or more evidence variables - P(Q1, Q2 | E1=e1, E2=e2)
+* Enumeration technique, but can be slow for large bayes nets
+* Speeding up techniques: Pulling out, maximizing independence
+* Bayes nets are the most compact and easiest to work if they are written in causal direction
+* Variable elimination technique - step by step factor multiplication
+
+## Week 11 - Approximate Inference
+* Use sampling to get joint probability distributions. This also let us build the conditional probability tables
+* Gibbs sampling using MCMC
+
+## Week 11 - Lesson 19 Hidden Markov Models
+* Time series pattern recognition
+* A lot of human activities fall in domain of pattern recognition through time series
+* How to match two signals - use delta frequency for freq matching and dynamic time warping for matching across time
+* [Dynamic time warping myths](http://wearables.cc.gatech.edu/paper_of_week/DTW_myths.pdf)
+* HMM training - break your sequence into a number of states, calculate prob distribution, calculate transition probabilities, update boundaries and so forth until convergence
