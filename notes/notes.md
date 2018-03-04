@@ -168,3 +168,8 @@ best estimated total path cost first
 * How to match two signals - use delta frequency for freq matching and dynamic time warping for matching across time
 * [Dynamic time warping myths](http://wearables.cc.gatech.edu/paper_of_week/DTW_myths.pdf)
 * HMM training - break your sequence into a number of states, calculate prob distribution, calculate transition probabilities, update boundaries and so forth until convergence
+* Baum Welch - variation of the expectation maximization process
+* Any distribution may be represented by a mixture og Gaussians
+* Choosing HMM topology
+* Different specific tricks: Context grammar and statistical grammar combined reduce the error rate by 8
+* HMMs are generally bad for generating data, while good at classifying it - the problem is that the output has no continuity.
