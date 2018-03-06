@@ -159,6 +159,8 @@ class SelectorCV(ModelSelector):
             k_folds = len(self.sequences)
         elif len(self.sequences) > 5:
             k_folds = 5
+        else:
+            k_folds = 3
 
         # print("{}, seq={}, folds={}".format(self.this_word, len(self.sequences), k_folds))
 
