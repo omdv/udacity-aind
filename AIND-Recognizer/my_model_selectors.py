@@ -72,8 +72,8 @@ class SelectorBIC(ModelSelector):
     # Reference: https://discussions.udacity.com/t/understanding-better-model-selection/232987/8
     # n^2 + 2*d*n - 1
     # this parameter growth very quickly with n_states, so the best n_states in my case is almost always stays at min
-    def calc_free_params(self, n_states, n_samples):
-        return n_states*n_states + 2*n_samples*n_states - 1
+    def calc_free_params(self, n_states, n_features):
+        return n_states*n_states + 2*n_features*n_states - 1
 
     def select(self):
         """ select the best model for self.this_word based on
@@ -92,8 +92,8 @@ class SelectorBIC(ModelSelector):
             try:
                 _m = self.base_model(n_states)
                 log_like = _m.score(self.X, self.lengths)
-                n_samples = len(self.X)
-                BIC = -2. * log_like + self.calc_free_params(n_states, n_samples) * np.log(n_samples)
+                n_samples, n_features = self.X.shape
+                BIC = -2. * log_like + self.calc_free_params(n_states, n_features) * np.log(n_samples)
                 result.append((BIC, _m))
             except:
                 pass
