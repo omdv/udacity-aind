@@ -173,3 +173,30 @@ best estimated total path cost first
 * Choosing HMM topology
 * Different specific tricks: Context grammar and statistical grammar combined reduce the error rate by 8
 * HMMs are generally bad for generating data, while good at classifying it - the problem is that the output has no continuity.
+
+# Term 2 - Deep Learning
+
+## Week 1 - Deep NN
+* Usual NN explanations - AND, OR, NAND, XOR, etc
+* Using graphical representation to explain the separation of classes
+* Moving line towards misclassified points with learning rate
+* Error functions, gradient descent, error function needs to be continuous for GD
+* Sigmoid is needed vs step function to give a continuous change, good explanation of activation functions overall
+* Softmax for multiclass problems - normalized exponents of linear outputs
+* One-hot encoding
+* Maximum likelihood (log-likelihood is required to get rid of products of probabilities)
+* Cross-entropy is the negative sum of log of probabilities. Good model - low cross-entropy. Misclassified points have higher negative log of probability, because log of probability of 1 is zero. Cross-entropy is the sum of all outcome probabilities times the outcome for all samples. Essentially we are adding probabilities only of the events that have occured by multiplying log of probability by the label for the event.
+* Logistic regression - explanation is based on error function described earlier, which is a mean of log of probabilities times label
+* Gradient descent calculations - analytical derivations. For logistic regression the gradient turns out to be just the scalar times coordinates of the point, where scalar is just the difference between the label and the prediction. Updating weights and bias becomes as simple as just multiplying learning rate (normalized by number of points) by coordinates. GD algo is similar to previously discussed Perceptron algo.
+* Perceptron just draws a line or hyperplane given weights for each input and bias and determines if given point is positive or negative (activation function -> sigmoid vs step function)
+* Neural networks (or MLP) - combining first level models to get more complex models, using weights for previous models to achieve the right combination, applying activation functions (sigmoid) to get continuous probability and also cut-off probability at one.
+* NN architecture - nodes equal to problem dimension, output equal to a number of classes needed to be classified.
+* Feedforward - forward calculation to get the error function for the whole network
+* Backprop - feedforward with gradient descent. Calculating derivatives at each layer, use chain rule for derivatives.
+* Bias vs variance - it is better to stay on overcomplicated side and implement some techniques to prevent overfittting
+* Early stopping - stop when test error starts to increase
+* Regularization - we don't want too certain models, because their activation function has too steep curve in the vicinity of zero and as such are difficult to be handled by gradient descent. Large coefficients cause the overfitting. Regularization punishes big coefficients. L1 or L2 regularization. L1 regularization is better for feature selection, L2 is better for training models.
+* Dropout - randomly turning off some nodes during the training to let other nodes train and train the whole network more uniformly.
+* Vanishing gradient with sigmoid function - either tanh or relu.
+* Random restarts to solve the local minimum problem.
+* Momentum to skip small humps to not get stuck in local minima - work really well in practice.
