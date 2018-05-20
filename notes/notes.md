@@ -297,14 +297,46 @@ RNNs are specifically designed to extract maximal performance from sequential da
 
 Some high-level technical issues of RNNs:
 - requires large data sets similar to other deep learning techniques
-- vanishing or exploding gradients, which is also typical to deep learning, see [1] and [2]
+- vanishing or exploding gradients, which is also typical to deep learning, see [1]
 
 ### Links
-[1] [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
-[2] [Difficulties of training RNN](http://proceedings.mlr.press/v28/pascanu13.pdf)
+[1] [Difficulties of training RNN](http://proceedings.mlr.press/v28/pascanu13.pdf)
 
 
 ## Lesson 11 - Long Short Term Memory Networks
+
+RNNs have a hard time storing a long-term memory due to a vanishing gradient problem. LSTM addresses this issue by protecting the long-term memory more. At each training example we fit in the long and short memory from prior example to obtain the new long/short memory and the prediction.
+
+LSTM have four gates which are responsible for processing and combining long-term memory (LTM) and short-term memory (STM) to obtain a new long and short memory and a prediction. Let's look at them one by one.
+
+### The Learn Gate
+The learn gate combines STM and the event and also ignores some part of it. Combination is done by joining two vectors (STM and event), multiplying by weights, adding a bias and squishing by tanh. Ignoring is done by element-wise multiplying the result of combination by a **ignore factor**, which is a vector. This vector is obtained also by a small neurwal network taking the short term memory as input.
+
+![learn gate](https://d17h27t6h515a5.cloudfront.net/topher/2017/November/5a0e2cc3_screen-shot-2017-11-16-at-4.26.22-pm/screen-shot-2017-11-16-at-4.26.22-pm.png)
+
+### The Forget Gate
+Forget gate takes LTM and multiplies it by a **forget factor**. Forget factor is an output of another small neural network, which takes the combination of STM and event, multiplies by weight, adds bias and runs through sigmoid. The equation for forget factor is below.
+
+![forget factor](https://d17h27t6h515a5.cloudfront.net/topher/2017/November/5a0e2d24_screen-shot-2017-11-16-at-4.27.58-pm/screen-shot-2017-11-16-at-4.27.58-pm.png)
+
+### The Remember Gate
+This one just adds the output of the learn gate and combines it with the output of the forget gate.
+
+### The Use Gate
+Also called the output gate, this one takes the output of the forget and learn gates and combines them to obtain the new short term memory and the output (which are the same thing). The way it is done is the small neural network on top of forget gate with tanh function and another network on top of learn gate with sigmoid. The results are then multiplied to provide a new STM.
+
+### Overall architecture
+The overall architecture is quite arbitrary and is the result of experimentation. It is proven to work, however may be changed and is not set in stone.
+
+![LSTM](https://d17h27t6h515a5.cloudfront.net/topher/2017/November/5a0e42ce_screen-shot-2017-11-16-at-5.54.40-pm/screen-shot-2017-11-16-at-5.54.40-pm.png)
+
+Other architectures which work well are **Gated Recurrent Unit** (GRU) [4]. It's main difference from LSTM is that it has only one working memory, not LTM and STM. It does have two gates - update and combine.
+
+### Links
+[1] [Chris Olah's post](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+[2] [Karpathy's video lecture](https://www.youtube.com/watch?v=iX5V1WpxxkY)
+[3] [Edwin Chen's post](http://blog.echen.me/2017/05/30/exploring-lstms/)
+[4] [GRU overview](http://www.cs.toronto.edu/~guerzhoy/321/lec/W09/rnn_gated.pdf)
 
 
 ### Links:
