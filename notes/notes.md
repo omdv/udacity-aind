@@ -200,3 +200,112 @@ best estimated total path cost first
 * Vanishing gradient with sigmoid function - either tanh or relu.
 * Random restarts to solve the local minimum problem.
 * Momentum to skip small humps to not get stuck in local minima - work really well in practice.
+
+## Week 2 - CNNs
+* Google's wavenet - reading text
+* Good link about activation functions [link](http://cs231n.github.io/neural-networks-1/#actfun)
+* Karpathy's [link](http://karpathy.github.io/2016/05/31/rl/) about deep RL
+* MNIST MLP notebook best practices:
+- one-hot encode and flatten
+- relu, rmsprop
+- use ModelCheckpoint callback and validation split when training
+* [List](https://keras.io/callbacks/#modelcheckpoint) of Keras callbacks
+* Good [article](https://www.technologyreview.com/s/604087/the-dark-secret-at-the-heart-of-ai/) on the fact that noone understands how DL works and that EU wants to enforce AI practitioners to explain the logic of AI systems to its users
+* CNNs are similar to MLPs in activation functions, however use different hidden layers to address the following two issues of MLPs:
+- MLPs use only fully connected layers, so the number of parameters is too high
+- We throw away the 2D info contained in the image when we flatten it, i.e. the underlying spatial info of the image is lost
+* CNNs use the layers, which are sparsely connected and informed about 2D structure
+* Locally connected layers vs densely connected layers
+* Convolutional layers:
+- the node value is a sum of weights times the value of pixel/input, apply ReLu
+- weights can be represented in a grid, with the size matching the size of the convolutional windows, then this grid is called a filter
+- filter resembles the pattern it is designed to detect, so it is useful to visualize the filter to understand what type of pattern it will detect
+- convolutional layer may have multiple collections of filters to look after different patterns
+- with this said in CNNs we do not pre-specify filters, CNN will learn the best filters based on the images it needs to detect
+- more about [filters intuition](http://setosa.io/ev/image-kernels/)
+* Collection of filters is called either a feature map or activation map
+* Stanford course on CNN - [CS231n](http://cs231n.stanford.edu)
+* For color images the filter becomes the stack of three 2d matrices, one for each color in RGB, the multiplication of input by filter weights is done for each color correspondingly
+* Hyperparameters of convolutional layers:
+- size of filters
+- number of filters
+- stride of filters - step by which we move filter across the image. Stride of one will create roughly the same size layer as the image, stride of two will create approximately the half, approximately because of the edge. You could either ignore the size mismatch and you may loose some nodes, otherwise you can pad image with zeros.
+* [Stanford wiki](http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial) on deep learning
+* Number of parameters in conv layer is: n_filters * size_filter^2 * depth_input + n_filters (for bias)
+* Depth of the output of layer is equal to n_filters
+* Shape depends on padding and stride
+* Pooling layers are the second type of layer for CNN, required to reduce dimensionality or complexity of conv layer output. There are many different types. Max pooling will use the window of some size and select max value in the specific window. Global averaging PL will just average each layer/filter of conv.layer and return just a vector. All pooling layers will still have the number of outputs (be it matrix or single value) equal to the initial number of layers/filters.
+* Pooling usually has either max or average, 1D, 2D, 3D and global vs window-based
+
+
+## Week 4 - End of CNN and TF intro
+* CNNs require images of the same size. It is typical to transform all images to square with dims of power of two
+* CNN progression may be seen as a start with 2D image with depth (1 for grayscale, 3 for RGB). CNNs then progressively increase the depths. Convolutional layers increase the depth due to the addition of filters and may also decrease spatial dimensions, pooling layers keep the depth the same and decrease dimensions significantly depending on the type of pooling.
+* Some typical values:
+- filters/kernels size are 2x2 to 5x5
+- stride is usually 1 (default)
+- padding is better "same" (not default)
+- combined above results in the layer of the same size, but increased depth
+- conv layers connected in series typically have increasing number of filters
+* The intuition is that as you combine conv layers of increasing depth with max pooling you convert spatial information into a depth, where each layer in a final pooling layer may be seen as answering questions about the image, like whether there are wheels, or legs or eyes. We don't prespecify these questions as we don't specify the type of filters, instead the model creates the "right questions" itself.
+* The final pooling layer may be flattened, because all spatial info is already preprocessed and lost at this point. Then the dense layer with relu and final layer with softmax may be used.
+* Image augmentation - generate synthethic test data by rotating, flipping and translating your training images. Keras has corresponding functions, the fit method is slighly different as well.
+* ImageNet competitions milestones:
+- 2012: AlexNet introduced dropouts and ReLus
+- 2014: VGG pionered the use of smaller filters. They used 16 or 19 layers total with 3x3 filters grouped in three blocks of conv layers separated by pooling layers
+- 2015: ResNet has 152 layers. Usually this is a problem because of vanishing gradient problem. ResNet resolved it by implementing a shortcuts between layers to let the gradient backpropagate.
+- Most of the winning architectures and trained nets are accessible through Keras
+* Techniques to understand how CNN works:
+- showing the output of each filter real-time
+- constructing images which maximize the activation of a layer - famous illustrations. Then it may become apparent what a layer is trying to distinguish, say a building or eyes or legs, etc.
+- good link from [CS231n](http://cs231n.github.io/understanding-cnn/)
+- many good links in course notes
+- [Deep Vis Toolbox](https://github.com/yosinski/deep-visualization-toolbox)
+- Deeper layers may provide a more refined representation, while first layers may be looking at just simple patterns
+* Transfer learning is a technique to use pre-trained CNNs for your specific classification tasks. CNNs are trained to detect patterns, so if you remove only the last (few) layers which are responsible for detection of specific objects and add dense layer to train to your new dataset it is possible to re-train network. There are different strategies on how to do it, depending on the size of your dataset and how much the new task differs from the one used to train the original network.
+
+
+## Lesson 10 - Recurrent Neural Networks
+
+### Recursivity
+
+Vanilla supervised learning algorithms don't care about the order of the input features. RNN are well-suited to deal with the order of the input features, similar to how CNN deal with spatial features.
+
+Sequences are a result of some underlying process, which in many cases is fully or partially unknown (e.g. future stock prices, weather, etc). In the absense of the knowledge of the underlying model we'll model such sequences recursively.
+
+Recursive sequence requires the first element or the **seed** and some formula or model defining the current element as a function of the previous elements. **Order** of the sequence is the number of the previous elements the current element depends on. Sequence is recursive if such model or formula exists. Recursive sequences may be represented in a formula or equation notation and in a graphical form. Representation may be **folded** or **unfolded**.
+
+Given a recursive sequence or **driver** we can express other sequence or **hidden** sequence as a function of this driver and previous values of hidden sequence. This is called **driving** a sequence.
+
+### Recursivity and Supervised Learning
+
+We can attempt to model recursive sequences by applying feedforward networks. The goal is to guess the architecture of the model which correctly represents the RS. The problem then reduced to finding a weights of this model and becomes similar to a regression task i.e. finding best weights by minimizing the loss function or the difference between modeled RS and real RS.
+
+We need to use windows to generate input-output pairs, in other words if we assume the order of the sequence to be three we need to generate X-y pairs, where matrix X will consist of three previous elements for each element and y will be the element we are trying to predict.
+
+The data we attempt to fit by a recurvise model may be stochastic and NOT recursive in nature. However we may manage to find a close enough recursive approximation, which is recursive by design. This means that this approach is applicable to any data, since our aim is not to resolve a recursive approximation which may explain the data we are seeing.
+
+The resulting model may be used to generate sequences, either long-term or one step at a time.
+
+### RNNs
+
+Feed-forward NN has a fundamental flaw when being applied to recursive sequences in that they treat each level of the sequence independently and thus losing the whole point of recursive sequences. This will be addressed by RNNs. RNNs introduce a formal mathematical dependence on the prior elements to each level. RNNs also have "memory", since at every hidden state there is a dependence on the prior hidden state, which effectively encompasses all prior hidden states.
+
+RNNs are specifically designed to extract maximal performance from sequential data similar to like how CNNs are designed to extract maximal performance from spatial data.
+
+### Technical Issues of RNNs
+
+Some high-level technical issues of RNNs:
+- requires large data sets similar to other deep learning techniques
+- vanishing or exploding gradients, which is also typical to deep learning, see [1] and [2]
+
+### Links
+[1] [LSTM](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+[2] [Difficulties of training RNN](http://proceedings.mlr.press/v28/pascanu13.pdf)
+
+
+## Lesson 11 - Long Short Term Memory Networks
+
+
+### Links:
+[1] [NaNoGenMo novel generation contest](https://github.com/NaNoGenMo/2016)
