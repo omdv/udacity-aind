@@ -333,11 +333,23 @@ The overall architecture is quite arbitrary and is the result of experimentation
 Other architectures which work well are **Gated Recurrent Unit** (GRU) [4]. It's main difference from LSTM is that it has only one working memory, not LTM and STM. It does have two gates - update and combine.
 
 ### Links
-[1] [Chris Olah's post](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
-[2] [Karpathy's video lecture](https://www.youtube.com/watch?v=iX5V1WpxxkY)
-[3] [Edwin Chen's post](http://blog.echen.me/2017/05/30/exploring-lstms/)
-[4] [GRU overview](http://www.cs.toronto.edu/~guerzhoy/321/lec/W09/rnn_gated.pdf)
+- [1] [Chris Olah's post](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+- [2] [Karpathy's video lecture](https://www.youtube.com/watch?v=iX5V1WpxxkY)
+- [3] [Edwin Chen's post](http://blog.echen.me/2017/05/30/exploring-lstms/)
+- [4] [GRU overview](http://www.cs.toronto.edu/~guerzhoy/321/lec/W09/rnn_gated.pdf)
 
+
+## Lesson 12: Implementing RNNs and LSTMs
+
+RNNS have an intrinsic difficulty learning long-range interactions due to exploding/vanishing gradients. This happens because of multiple multiplications of the same number, so if the number is below 1 the product will eventually go to zero and if it is larger than 1 it will go to infinity.
 
 ### Links:
 [1] [NaNoGenMo novel generation contest](https://github.com/NaNoGenMo/2016)
+
+## Lesson 15: Project
+Using LSTM for time-series prediction (Apple stock prices) and generation of text. There were 5 assignments, two were related to converting sequences into windowed X-y representations. Two were related to creating LSTM networks in Keras. One was related to cleaning up the text.
+
+### Links:
+- [1] [Completed project repository](https://github.com/omdv/udacity-aind/tree/master/aind2-rnn)
+- [2] [Game of Thrones chapter generation](https://motherboard.vice.com/en_us/article/evvq3n/game-of-thrones-winds-of-winter-neural-network)
+- [3] [Code for the above example](https://github.com/zackthoutt/got-book-6/tree/master/generated-book-v1)
