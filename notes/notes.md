@@ -345,6 +345,46 @@ RNNS have an intrinsic difficulty learning long-range interactions due to explod
 
 ### Links:
 [1] [NaNoGenMo novel generation contest](https://github.com/NaNoGenMo/2016)
+[2] [Karpathy's implementation of RNN in PyTorch](https://github.com/karpathy/char-rnn)
+[3] [Implementation of LSTM in Tensorflow API](https://github.com/udacity/deep-learning/blob/master/intro-to-rnns/Anna_KaRNNa_Solution.ipynb)
+[4] [Building RNN in TF from ground up](https://r2rt.com/recurrent-neural-networks-in-tensorflow-i.html)
+
+
+## Lesson 13: Hyperparameters
+
+No magic numbers that work everywhere. HP can be grouped in two categories. First is Optimizer hp, these will include learning rate, minibatch size, number of training iterations. Second is Model hp. These will include number of layers and some model-specific parameters related to architecture.
+
+Learning rate is the single most important parameter. There are many different scenarios where we may be converging too slowly if rate is too small or even diverging if rate is too high. Some of these issues may be addressed by decaying learning rate. Also there are adaptive learning algorithms, like [Adam](https://www.tensorflow.org/api_docs/python/tf/train/AdamOptimizer) and [Adagrad](https://www.tensorflow.org/api_docs/python/tf/train/AdagradOptimizer).
+
+Minibatch size is the second important hyperparameter. Historically there was a debate between using online (stochastic) training on each point one-by-one vs using the entire dataset. 32 is a good starting point. There is a computational boost benefit of using larger batch sizes, however using smaller batches actually introduces more noise, which allows to avoid algorithm stucking in a local minima. So, both big and small size have their benefits. According to [paper](https://arxiv.org/abs/1606.02228) too large batch sizes significantly decrease accuracy, so anywhere from 32 to 256 is a good range.
+
+Early stopping with validation error helps to choose the best number of training iterations/epochs.
+
+For the number of layers and hidden units - *"in practice it is often the case that 3-layer neural networks will outperform 2-layer nets, but going even deeper (4,5,6-layer) rarely helps much more. This is in stark contrast to Convolutional Networks, where depth has been found to be an extremely important component for a good recognition system (e.g. on order of 10 learnable layers)." ~ Andrej Karpathy in https://cs231n.github.io/neural-networks-1/*. Increasing the number of hidden units increases the capacity of model to learn, but increase it too much and you will likely overfit. It is recommended to have more hidden units than inputs.
+
+For RNN architectures - there is no clear winner between LSTM and GRUs. Two layers are sufficient usually. Word embeddings sizes typically don't go beyond 500 or 1000.
+
+### Links:
+[1] [Jay Alammar's blog on NN visualisation](http://jalammar.github.io/)
+[2] [Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling](https://arxiv.org/abs/1412.3555)
+[3] [An Empirical Exploration of Recurrent Network Architectures](http://proceedings.mlr.press/v37/jozefowicz15.pdf)
+[4] [Visualizing and Understanding Recurrent Networks ](https://arxiv.org/abs/1506.02078)
+[5] [https://colah.github.io/posts/2015-08-Understanding-LSTMs/](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+[6] [Massive Exploration of Neural Machine Translation Architectures](https://arxiv.org/abs/1703.03906v2)
+[7] [How to Generate a Good Word Embedding?](https://arxiv.org/abs/1507.05523)
+
+
+## Lesson 14: Sentiment Analysis
+
+Following [deep-learning repo](https://github.com/udacity/deep-learning/tree/master/sentiment-rnn). Predict sentiment based on IMDB movie reviews.
+
+Steps:
+- Pre-process review and split into words
+- Use embedding layers to convert words into embedding space (you can use Word2Vec or GloVe weights).
+- Create training, test and validation sets
+- Build the TF graph
+- Train the network
+
 
 ## Lesson 15: Project
 Using LSTM for time-series prediction (Apple stock prices) and generation of text. There were 5 assignments, two were related to converting sequences into windowed X-y representations. Two were related to creating LSTM networks in Keras. One was related to cleaning up the text.
@@ -353,3 +393,15 @@ Using LSTM for time-series prediction (Apple stock prices) and generation of tex
 - [1] [Completed project repository](https://github.com/omdv/udacity-aind/tree/master/aind2-rnn)
 - [2] [Game of Thrones chapter generation](https://motherboard.vice.com/en_us/article/evvq3n/game-of-thrones-winds-of-winter-neural-network)
 - [3] [Code for the above example](https://github.com/zackthoutt/got-book-6/tree/master/generated-book-v1)
+
+
+## Lesson 16: Generative Adversarial Networks
+
+
+## Reinforcement Learning Resources
+[RL Notebooks](https://github.com/Pulkit-Khandelwal/Reinforcement-Learning-Notebooks)
+[Python Machine Learning RL Notebooks](https://github.com/rasbt/python-machine-learning-book-2nd-edition#whats-new-in-the-second-edition-from-the-first-edition)
+[Regression, Clustering notebooks](https://github.com/nborwankar/LearnDataScience)
+[Scikit-learn tutorials](https://github.com/jakevdp/sklearn_tutorial)
+[Deep learning with Python](https://github.com/fchollet/deep-learning-with-python-notebooks)
+[Jupyter on a cloud](http://efavdb.com/deep-learning-with-jupyter-on-aws/)
