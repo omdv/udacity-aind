@@ -487,6 +487,8 @@ CV pipeline:
 - Step 4: Feature extraction (extracting data about features)
 - Step 5: Prediction/Recognition (object recognition, feature matching)
 
+![cv pipeline](https://d17h27t6h515a5.cloudfront.net/topher/2017/June/5951a571_cv-general-pipeline/cv-general-pipeline.png)
+
 #### Pre-processing step
 
 Typical techniques - changing color schemes, changing spatial representation and transforming, filters to sharpen or blur.
@@ -565,9 +567,36 @@ Convolution process means element-wise multiplication of kernel by a piece of im
 
 Different kernels are good for different purposes, e.g. identifying horizontal or vertical changes, identifying edges, etc.
 
-Sobel filter is used for abrupt intensity changes in x and y directions. Example:
+Sobel filter is used for abrupt intensity changes in x and y directions. There are two variations - Sobel X and Sobel Y. Sobel X example is shown below.
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;-1&space;&&space;0&space;&&space;1\\&space;-2&space;&&space;0&space;&&space;2\\&space;-1&space;&&space;0&space;&&space;1&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;-1&space;&&space;0&space;&&space;1\\&space;-2&space;&&space;0&space;&&space;2\\&space;-1&space;&&space;0&space;&&space;1&space;\end{bmatrix}" title="\begin{bmatrix} -1 & 0 & 1\\ -2 & 0 & 2\\ -1 & 0 & 1 \end{bmatrix}" /></a>
+
+OpenCV has a [function](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html) to convolve an image with a provided kernel:
+
+```
+kernel = np.array([[ -1, -2, -1], 
+                   [ 0, 0, 0], 
+                   [ 1, 2, 1]])
+filtered_image = cv2.filter2D(gs_image, -1, kernel)
+```
+
+High-pass filters often exaggerate noise in the images, which is not helpful. Low-pass filters can help with noise and is often applied to blur the image before the high-pass filter. Low-pass filters blur the image and block the high-frequency parts of the image.
+
+The simplest example of a blur filter is an averaging filter:
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;1&space;&&space;1&space;&&space;1\\&space;1&space;&&space;1&space;&&space;1\\&space;1&space;&&space;1&space;&&space;1&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;-1&space;&&space;0&space;&&space;1\\&space;-2&space;&&space;0&space;&&space;2\\&space;-1&space;&&space;0&space;&&space;1&space;\end{bmatrix}" title="\begin{bmatrix} 1 & 1 & 1\\ 1 & 1 & 1\\ 1 & 1 & 1 \end{bmatrix}" /></a>
+
+Since we are summing the result of element-wise multiplication we are getting the average value of all 9 pixels. We need to normalize it by 1/9 to preserve the same overall intensity.
+
+[Gaussian blur](https://en.wikipedia.org/wiki/Gaussian_blur) is an improved version which preserves edges. It is one of the most used low-pass filters. It is quite similar to the first edge-detection filter, except all weights are positive and the result is normalized. The Gaussian blur is implemented as a [function](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_filtering/py_filtering.html) in OpenCV.
+
+The edge detection workflow is the following:
+1. Convert image to grayscale
+2. Apply low-pass filter (Gaussian blur)
+3. Apply high-pass filter
+4. Apply binary threshold (convert to B&W) to emphasize edges
+
+Canny edge detection is used widely in CV applications and implements the workflow above with some improvements to emphasized edges following the high-pass filter. It is available as a [function](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html) in OpenCV as well. Note - it is recommended to use 1:2 or 1:3 ratios when defining threshold values for Canny function.
 
 
 
