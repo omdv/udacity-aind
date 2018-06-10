@@ -1,3 +1,7 @@
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
 # Term 1
 ## Week 1 - Lesson 1 (Intro and logistics)
 - [x] Slack channel
