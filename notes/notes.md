@@ -1,7 +1,3 @@
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
 # Term 1
 ## Week 1 - Lesson 1 (Intro and logistics)
 - [x] Slack channel
@@ -571,13 +567,7 @@ Different kernels are good for different purposes, e.g. identifying horizontal o
 
 Sobel filter is used for abrupt intensity changes in x and y directions. Example:
 
-$$
-\begin{bmatrix}
-    -1 & 0 & 1 \\
-    -2 & 0 & 2 \\
-    -1 & 0 & 1
-\end{bmatrix}
-$$
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;-1&space;&&space;0&space;&&space;1\\&space;-2&space;&&space;0&space;&&space;2\\&space;-1&space;&&space;0&space;&&space;1&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;-1&space;&&space;0&space;&&space;1\\&space;-2&space;&&space;0&space;&&space;2\\&space;-1&space;&&space;0&space;&&space;1&space;\end{bmatrix}" title="\begin{bmatrix} -1 & 0 & 1\\ -2 & 0 & 2\\ -1 & 0 & 1 \end{bmatrix}" /></a>
 
 
 
