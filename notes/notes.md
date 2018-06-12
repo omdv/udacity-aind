@@ -598,6 +598,38 @@ The edge detection workflow is the following:
 
 Canny edge detection is used widely in CV applications and implements the workflow above with some improvements to emphasized edges following the high-pass filter. It is available as a [function](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html) in OpenCV as well. Note - it is recommended to use 1:2 or 1:3 ratios when defining threshold values for Canny function.
 
+## Lesson CV-4: Image Segmentation
+
+Image segmentation is the process of dividing image in segment or unique areas of interest. It is done in two ways:
+1. By connecting a series of detected edges
+2. By grouping an image into separate regions by area or distinct trait (e.g. color)
+
+Image contouring is a useful technique. OpenCV has a series of functions for [contouring](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_contours/py_table_of_contents_contours/py_table_of_contents_contours.html). Prior to using these it is beneficial to apply thresholding to emphasize boundaries and objects. 
+
+```
+# Read in an image and convert to RGB
+image = cv2.imread('thumbs_up_down.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Convert to grayscale
+gray = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)
+# Create a binary thresholded image
+retval, binary = cv2.threshold(gray, 225, 255, cv2.THRESH_BINARY_INV)
+
+# Find contours from thresholded image
+retval, contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+```
+
+Hough transformation moves lines in image space to points in Hough space which is formed in (m, b) coordinates, where m is the slope and b is the intercept. Hough-based edge detection in [OpenCV](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_houghlines/py_houghlines.html). Hough transform may be used in finding the road boundaries for self-driving cars.
+
+K-mean clustering is used to form clusters based on some common traits. By choosing the right cluster number it is possible to mask different objects.
+
+CNNs can be used for image segmentation as well, although there are not very computationally effective. The naive approach was to run multiple CNNs per each small piece of an image and predict whether there is any recognizable object inside that piece. There is an ongoing [research work](https://blog.athelas.com/a-brief-history-of-cnns-in-image-segmentation-from-r-cnn-to-mask-r-cnn-34ea83205de4) to improve the efficiency of CNNs for image detection. [Mask R-CNN](https://arxiv.org/abs/1703.06870) is the state-of-the-art algo as of 2017.
+
+
+Links:
+1. [CNN for Image Segmentation](https://blog.athelas.com/a-brief-history-of-cnns-in-image-segmentation-from-r-cnn-to-mask-r-cnn-34ea83205de4)
+2. [Mask R-CNN](https://arxiv.org/abs/1703.06870)
 
 
 ## Reinforcement Learning Resources
