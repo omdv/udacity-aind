@@ -631,6 +631,110 @@ Links:
 1. [CNN for Image Segmentation](https://blog.athelas.com/a-brief-history-of-cnns-in-image-segmentation-from-r-cnn-to-mask-r-cnn-34ea83205de4)
 2. [Mask R-CNN](https://arxiv.org/abs/1703.06870)
 
+## Lesson CV-6: Features and Object Recognition
+
+The most important property of the feature in CV applications is the repeatability, i.e. whether it will be detected in two or more images of the same scene under different conditions.
+
+Three categories of features:
+1. Edges
+2. Corners (intersection of edges)
+3. Blobs (region based features)
+
+Corners are the most repeatable features due to their uniqueness on a given image. Corner detection algorithm is looking for big variations in the direction and magnitude of gradients. [Corner gradient](http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html) in openCV.
+
+*Dilation and erosion are known as morphological operations. They are often performed on binary images, similar to contour detection. Dilation enlarges bright, white areas in an image by adding pixels to the perceived boundaries of objects in that image. Erosion does the opposite: it removes pixels along object boundaries and shrinks the size of objects.*
+
+*As mentioned, above, these operations are often combined for desired results! One such combination is called opening, which is erosion followed by dilation. This is useful in noise reduction in which erosion first gets rid of noise (and shrinks the object) then dilation enlarges the object again, but the noise will have disappeared from the previous erosion!*
+
+*Closing is the reverse combination of opening; it’s dilation followed by erosion, which is useful in closing small holes or dark areas within an object. Closing is reverse of Opening, Dilation followed by Erosion. It is useful in closing small holes inside the foreground objects, or small black points on the object.*
+
+Example of corner detection script:
+
+```
+image = cv2.imread('waffles.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+# ---------------------------------------------------------- #
+
+def corner_detect(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    gray = np.float32(gray)
+    corners = cv2.cornerHarris(gray,2,3,0.04)
+    corners = cv2.dilate(corners,None)
+    return corners
+
+corners = corner_detect(image)
+threshold = 0.3*corners.max()
+
+# ---------------------------------------------------------- #
+if(corners is not None):
+    corner_image = np.copy(image)
+
+    # Iterate through all the corners and draw them on the image (if they pass the threshold)
+    for j in range(0, corners.shape[0]):
+        for i in range(0, corners.shape[1]):
+            if(corners[j,i] > threshold):
+                # image, center pt, radius, color, thickness
+                cv2.circle(corner_image, (i, j), 1, (0,255,0), 1)      
+                
+    # Plot the result
+    f, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+    f.tight_layout()
+    ax1.imshow(corners, cmap='gray')
+    ax1.set_title('Dilated Corners')
+    ax2.imshow(corner_image, cmap='gray')
+    ax2.set_title('Thresholded Corners')
+```
+
+### Histogram of Oriented Gradients
+
+It is possible to construct a vector of features, by estimating the edges on the image. Then split the image into cell and within each cell calculate the direction of the gradient for the edge. This matrix of gradient directions may then be flattened and used as a feature vector.
+
+HOG is one of the examples of algorithms using the above-described principle. It comprises of the following steps:
+1. Calculate the magnitude and direction of the gradients in the image at each pixel (using Sobel filters)
+2. Groups pixels into square cells
+3. Count how many gradients in each cell fall into specific range of orientations
+
+The result is the vector of features, which can be used in classifier to detect similar objects. The main assumption underneath is that HOG features will be unique to a specific object, wherever/however it appears.
+
+HOG has a function in openCV:
+
+```
+# Parameters you define for a HOG feature vector
+win_size = (64, 64)
+block_size = (16, 16)
+block_stride = (5, 5)
+cell_size = (8, 8)
+n_bins = 9
+
+# Create the HOG descriptor
+hog = cv2.HOGDescriptor(win_size, block_size, block_stride, cell_size, n_bins)
+
+# Using the descriptor, calculate the feature vector of an image
+feature_vector = hog.compute(image)
+```
+
+SVM has been shown to work well with HOG and is quite fast compared to CNNs obviously.
+
+### Haar Cascades
+
+Haar features are quite similar to convolution layers, but done at a larger scale. They can detect features like lines, rectangles and more complex features. After feature detection Haar algorithm applies a cascade of classifiers to reject parts of the images which are not classified as the face. As a result it focuses on processing and recognizing only related parts of the image. By rejecting parts of the image Haar cascade is a very fast algorithm which can be applied to a video stream on a laptop computer.
+
+Haar cascade may be trained to recognize objects other than face - see [openCV documentation](https://docs.opencv.org/3.0-beta/doc/user_guide/ug_traincascade.html?highlight=train%20cascade).
+
+### Motion
+
+Optical flow is one of the techniques to analyze motion on video streams. It is based on few assumptions:
+1. Pixel intensities stay consistent between frames
+2. Neighboring pixels have similar motion
+
+Optical flow is then tracks a point to understand the speed of movement and also predict the future positions of the object.
+
+*To perform optical flow on a video or series of images, we'll first have to identify a set of feature points to track. We can use a Harris corner detector or other feature detector to get these. Then, at each time step or video frame, we track those points using optical flow. OpenCV provides the function calcOpticalFlowPyrLK() for this purpose; it takes in three parameters: previous frame, previous feature points, and the next frame. And using only this knowledge, returns the predicted next points in the future frame. In this way, we can track any moving object and determine how fast it's going and where it's likely to move next!*
+
+### Links:
+1. [Tracking moving objects with OpenCV](https://docs.opencv.org/trunk/d7/d8b/tutorial_py_lucas_kanade.html)
+2. [Training Haar Cascade](https://docs.opencv.org/3.0-beta/doc/user_guide/ug_traincascade.html?highlight=train%20cascade)
+
 
 ## Reinforcement Learning Resources
 [RL Notebooks](https://github.com/Pulkit-Khandelwal/Reinforcement-Learning-Notebooks)
