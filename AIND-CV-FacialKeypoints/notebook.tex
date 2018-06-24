@@ -1,0 +1,2758 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CV\_project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{artificial-intelligence-nanodegree}{%
+\section{Artificial Intelligence
+Nanodegree}\label{artificial-intelligence-nanodegree}}
+
+\hypertarget{computer-vision-capstone}{%
+\subsection{Computer Vision Capstone}\label{computer-vision-capstone}}
+
+\hypertarget{project-facial-keypoint-detection}{%
+\subsection{Project: Facial Keypoint
+Detection}\label{project-facial-keypoint-detection}}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Welcome to the final Computer Vision project in the Artificial
+Intelligence Nanodegree program!
+
+In this project, you'll combine your knowledge of computer vision
+techniques and deep learning to build and end-to-end facial keypoint
+recognition system! Facial keypoints include points around the eyes,
+nose, and mouth on any face and are used in many applications, from
+facial tracking to emotion recognition.
+
+There are three main parts to this project:
+
+\textbf{Part 1} : Investigating OpenCV, pre-processing, and face
+detection
+
+\textbf{Part 2} : Training a Convolutional Neural Network (CNN) to
+detect facial keypoints
+
+\textbf{Part 3} : Putting parts 1 and 2 together to identify facial
+keypoints on any image!
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+**Here's what you need to know to complete the project:*
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In this notebook, some template code has already been provided for
+  you, and you will need to implement additional functionality to
+  successfully complete this project. You will not need to modify the
+  included code beyond what is requested.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Sections that begin with \textbf{`(IMPLEMENTATION)'} in the header
+    indicate that the following block of code will require additional
+    functionality which you must provide. Instructions will be provided
+    for each section, and the specifics of the implementation are marked
+    in the code block with a `TODO' statement. Please be sure to read
+    the instructions carefully!
+  \end{enumerate}
+\item
+  In addition to implementing code, there will be questions that you
+  must answer which relate to the project and your implementation.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    Each section where you will answer a question is preceded by a
+    \textbf{`Question X'} header.
+  \item
+    Carefully read each question and provide thorough answers in the
+    following text boxes that begin with \textbf{`Answer:'}.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{quote}
+\textbf{Note:} Code and Markdown cells can be executed using the
+\textbf{Shift + Enter} keyboard shortcut. Markdown cells can be edited
+by double-clicking the cell to enter edit mode.
+\end{quote}
+
+The rubric contains \textbf{optional} suggestions for enhancing the
+project beyond the minimum requirements. If you decide to pursue the
+``(Optional)'' sections, you should include the code in this IPython
+notebook.
+
+Your project submission will be evaluated based on your answers to
+\emph{each} of the questions and the code implementations you provide.
+
+    \hypertarget{steps-to-complete-the-project}{%
+\subsubsection{Steps to Complete the
+Project}\label{steps-to-complete-the-project}}
+
+Each part of the notebook is further broken down into separate steps.
+Feel free to use the links below to navigate the notebook.
+
+In this project you will get to explore a few of the many computer
+vision algorithms built into the OpenCV library. This expansive computer
+vision library is now
+\href{https://en.wikipedia.org/wiki/OpenCV\#History}{almost 20 years
+old} and still growing!
+
+The project itself is broken down into three large parts, then even
+further into separate steps. Make sure to read through each step, and
+complete any sections that begin with \textbf{`(IMPLEMENTATION)'} in the
+header; these implementation sections may contain multiple TODOs that
+will be marked in code. For convenience, we provide links to each of
+these steps below.
+
+\textbf{Part 1} : Investigating OpenCV, pre-processing, and face
+detection
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{step0}: Detect Faces Using a Haar Cascade Classifier
+\item
+  Section \ref{step1}: Add Eye Detection
+\item
+  Section \ref{step2}: De-noise an Image for Better Face Detection
+\item
+  Section \ref{step3}: Blur an Image and Perform Edge Detection
+\item
+  Section \ref{step4}: Automatically Hide the Identity of an Individual
+\end{itemize}
+
+\textbf{Part 2} : Training a Convolutional Neural Network (CNN) to
+detect facial keypoints
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{step5}: Create a CNN to Recognize Facial Keypoints
+\item
+  Section \ref{step6}: Compile and Train the Model
+\item
+  Section \ref{step7}: Visualize the Loss and Answer Questions
+\end{itemize}
+
+\textbf{Part 3} : Putting parts 1 and 2 together to identify facial
+keypoints on any image!
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{step7}: Build a Robust Facial Keypoints Detector
+  (Complete the CV Pipeline)
+\end{itemize}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+ \#\# Step 0: Detect Faces Using a Haar Cascade Classifier
+
+Have you ever wondered how Facebook automatically tags images with your
+friends' faces? Or how high-end cameras automatically find and focus on
+a certain person's face? Applications like these depend heavily on the
+machine learning task known as \emph{face detection} - which is the task
+of automatically finding faces in images containing people.
+
+At its root face detection is a classification problem - that is a
+problem of distinguishing between distinct classes of things. With face
+detection these distinct classes are 1) images of human faces and 2)
+everything else.
+
+We use OpenCV's implementation of
+\href{http://docs.opencv.org/trunk/d7/d8b/tutorial_py_face_detection.html}{Haar
+feature-based cascade classifiers} to detect human faces in images.
+OpenCV provides many pre-trained face detectors, stored as XML files on
+\href{https://github.com/opencv/opencv/tree/master/data/haarcascades}{github}.
+We have downloaded one of these detectors and stored it in the
+\texttt{detector\_architectures} directory.
+
+    \hypertarget{import-resources}{%
+\subsubsection{Import Resources}\label{import-resources}}
+
+In the next python cell, we load in the required libraries for this
+section of the project.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import required libraries for this section}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{cv2}                     \PY{c+c1}{\PYZsh{} OpenCV library for computer vision}
+        \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+        \PY{k+kn}{import} \PY{n+nn}{time} 
+\end{Verbatim}
+
+
+    Next, we load in and display a test image for performing face detection.
+
+\emph{Note}: by default OpenCV assumes the ordering of our image's color
+channels are Blue, then Green, then Red. This is slightly out of order
+with most image types we'll use in these experiments, whose color
+channels are ordered Red, then Green, then Blue. In order to switch the
+Blue and Red channels of our test image around we will use OpenCV's
+\texttt{cvtColor} function, which you can read more about by
+\href{http://docs.opencv.org/3.2.0/df/d9d/tutorial_py_colorspaces.html}{checking
+out some of its documentation located here}. This is a general utility
+function that can do other transformations too like converting a color
+image to grayscale, and transforming a standard color image to HSV color
+space.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load in color image for face detection}
+        \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/test\PYZus{}image\PYZus{}1.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert the image to RGB colorspace}
+        \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot our image using subplots to specify a size and title}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <matplotlib.image.AxesImage at 0x11ac92ef0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There are a lot of people - and faces - in this picture. 13 faces to be
+exact! In the next code cell, we demonstrate how to use a Haar Cascade
+classifier to detect all the faces in this test image.
+
+This face detector uses information about patterns of intensity in an
+image to reliably detect faces under varying light conditions. So, to
+use this face detector, we'll first convert the image from color to
+grayscale.
+
+Then, we load in the fully trained architecture of the face detector --
+found in the file \emph{haarcascade\_frontalface\_default.xml} - and use
+it on our image to find faces!
+
+To learn more about the parameters of the detector see
+\href{https://stackoverflow.com/questions/20801015/recommended-values-for-opencv-detectmultiscale-parameters}{this
+post}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Convert the RGB  image to grayscale}
+        \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Extract the pre\PYZhy{}trained face detector from an xml file}
+        \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Detect the faces in image}
+        \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Print the number of faces detected in the image}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of faces detected:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Make a copy of the orginal image to draw face detections on}
+        \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Get the bounding box for each detected face}
+        \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Add a red bounding box to the detections image}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+            
+        
+        \PY{c+c1}{\PYZsh{} Display the image with the detections}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image with Face Detections}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of faces detected: 13
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <matplotlib.image.AxesImage at 0x11fd82588>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the above code, \texttt{faces} is a numpy array of detected faces,
+where each row corresponds to a detected face. Each detected face is a
+1D array with four entries that specifies the bounding box of the
+detected face. The first two entries in the array (extracted in the
+above code as \texttt{x} and \texttt{y}) specify the horizontal and
+vertical positions of the top left corner of the bounding box. The last
+two entries in the array (extracted here as \texttt{w} and \texttt{h})
+specify the width and height of the box.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-1-add-eye-detections}{%
+\subsection{Step 1: Add Eye
+Detections}\label{step-1-add-eye-detections}}
+
+There are other pre-trained detectors available that use a Haar Cascade
+Classifier - including full human body detectors, license plate
+detectors, and more.
+\href{https://github.com/opencv/opencv/tree/master/data/haarcascades}{A
+full list of the pre-trained architectures can be found here}.
+
+    To test your eye detector, we'll first read in a new test image with
+just a single face.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Load in color image for face detection}
+        \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/james.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert the image to RGB colorspace}
+        \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot the RGB image}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.image.AxesImage at 0x11fd3d080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Notice that even though the image is a black and white image, we have
+read it in as a color image and so it will still need to be converted to
+grayscale in order to perform the most accurate face detection.
+
+So, the next steps will be to convert this image to grayscale, then load
+OpenCV's face detector and run it with parameters that detect this face
+accurately.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Convert the RGB  image to grayscale}
+        \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Extract the pre\PYZhy{}trained face detector from an xml file}
+        \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Detect the faces in image}
+        \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mf}{1.25}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Print the number of faces detected in the image}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of faces detected:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Make a copy of the orginal image to draw face detections on}
+        \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Get the bounding box for each detected face}
+        \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Add a red bounding box to the detections image}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+            
+        
+        \PY{c+c1}{\PYZsh{} Display the image with the detections}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image with Face Detection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of faces detected: 1
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <matplotlib.image.AxesImage at 0x11fdf7160>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{implementation-add-an-eye-detector-to-the-current-face-detection-setup.}{%
+\subsubsection{(IMPLEMENTATION) Add an eye detector to the current face
+detection
+setup.}\label{implementation-add-an-eye-detector-to-the-current-face-detection-setup.}}
+
+A Haar-cascade eye detector can be included in the same way that the
+face detector was and, in this first task, it will be your job to do
+just this.
+
+    To set up an eye detector, use the stored parameters of the eye cascade
+detector, called \texttt{haarcascade\_eye.xml}, located in the
+\texttt{detector\_architectures} subdirectory. In the next code cell,
+create your eye detector and store its detections.
+
+\textbf{A few notes before you get started}:
+
+First, make sure to give your loaded eye detector the variable name
+
+\texttt{eye\_cascade}
+
+and give the list of eye regions you detect the variable name
+
+\texttt{eyes}
+
+Second, since we've already run the face detector over this image, you
+should only search for eyes \emph{within the rectangular face regions
+detected in \texttt{faces}}. This will minimize false detections.
+
+Lastly, once you've run your eye detector over the facial detection
+region, you should display the RGB image with both the face detection
+boxes (in red) and your eye detections (in green) to verify that
+everything works as expected.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Add eye detection, using haarcascade\PYZus{}eye.xml, to the current face detector algorithm}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Loop over the eye detections and draw their corresponding boxes in green on image\PYZus{}with\PYZus{}detections}
+        
+        \PY{c+c1}{\PYZsh{} face detection and addition to the image}
+        \PY{k}{def} \PY{n+nf}{face\PYZus{}detection}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{params}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.25}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+            \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Detect the faces in image}
+            \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{o}{*}\PY{n}{params}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of faces detected:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{)}
+                
+            \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Get the bounding box for each detected face}
+            \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{image\PYZus{}with\PYZus{}detections}
+        
+        
+        \PY{c+c1}{\PYZsh{} eye detection and addition to the image}
+        \PY{k}{def} \PY{n+nf}{eye\PYZus{}detection}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{params}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+            \PY{n}{eye\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}eye.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Detect the eyes in image}
+            \PY{n}{eyes} \PY{o}{=} \PY{n}{eye\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{o}{*}\PY{n}{params}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of eyes detected:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{eyes}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Loop over and add green box for each eye}
+            \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{eyes}\PY{p}{:}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{image\PYZus{}with\PYZus{}detections}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Loop over the detections and draw their corresponding face detection boxes}
+        \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}  
+            
+        \PY{c+c1}{\PYZsh{} Do not change the code above this comment!}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Add eye detection, using haarcascade\PYZus{}eye.xml, to the current face detector algorithm}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Loop over the eye detections and draw their corresponding boxes in green on image\PYZus{}with\PYZus{}detections}
+        \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{eye\PYZus{}detection}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot the image with both faces and eyes detected}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image with Face and Eye Detection}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of eyes detected: 2
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} <matplotlib.image.AxesImage at 0x11e8a33c8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{optional-add-face-and-eye-detection-to-your-laptop-camera}{%
+\subsection{(Optional) Add face and eye detection to your laptop
+camera}\label{optional-add-face-and-eye-detection-to-your-laptop-camera}}
+
+It's time to kick it up a notch, and add face and eye detection to your
+laptop's camera! Afterwards, you'll be able to show off your creation
+like in the gif shown below - made with a completed version of the code!
+
+Notice that not all of the detections here are perfect - and your result
+need not be perfect either. You should spend a small amount of time
+tuning the parameters of your detectors to get reasonable results, but
+don't hold out for perfection. If we wanted perfection we'd need to
+spend a ton of time tuning the parameters of each detector, cleaning up
+the input image frames, etc. You can think of this as more of a rapid
+prototype.
+
+The next cell contains code for a wrapper function called
+\texttt{laptop\_camera\_face\_eye\_detector} that, when called, will
+activate your laptop's camera. You will place the relevant face and eye
+detection code in this wrapper function to implement face/eye detection
+and mark those detections on each image frame that your camera captures.
+
+Before adding anything to the function, you can run it to get an idea of
+how it works - a small window should pop up showing you the live feed
+from your camera; you can press any key to close this window.
+
+\textbf{Note:} Mac users may find that activating this function kills
+the kernel of their notebook every once in a while. If this happens to
+you, just restart your notebook's kernel, activate cell(s) containing
+any crucial import statements, and you'll be good to go!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Add face and eye detection to this laptop camera function }
+        \PY{c+c1}{\PYZsh{} Make sure to draw out all faces/eyes found in each frame on the shown video feed}
+        
+        \PY{k+kn}{import} \PY{n+nn}{cv2}
+        \PY{k+kn}{import} \PY{n+nn}{time} 
+        
+        \PY{c+c1}{\PYZsh{} wrapper function for face/eye detection with your laptop camera}
+        \PY{k}{def} \PY{n+nf}{laptop\PYZus{}camera\PYZus{}go}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Create instance of video capturer}
+            \PY{n}{cv2}\PY{o}{.}\PY{n}{namedWindow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{face detection activated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{vc} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoCapture}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Try to get the first frame}
+            \PY{k}{if} \PY{n}{vc}\PY{o}{.}\PY{n}{isOpened}\PY{p}{(}\PY{p}{)}\PY{p}{:} 
+                \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{rval} \PY{o}{=} \PY{k+kc}{False}
+            
+            \PY{c+c1}{\PYZsh{} Keep the video stream open}
+            \PY{k}{while} \PY{n}{rval}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} operate in gray}
+                \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{frame}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+                
+                \PY{n}{frame} \PY{o}{=} \PY{n}{face\PYZus{}detection}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+                \PY{n}{frame} \PY{o}{=} \PY{n}{eye\PYZus{}detection}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Plot the image from camera with all the face and eye detections marked}
+                \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{face detection activated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Exit functionality \PYZhy{} press any key to exit laptop video}
+                \PY{n}{key} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+                \PY{k}{if} \PY{n}{key} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{} Exit by pressing any key}
+                    \PY{c+c1}{\PYZsh{} Destroy windows }
+                    \PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{} Make sure window closes on OSx}
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{k}{return}
+                
+                \PY{c+c1}{\PYZsh{} Read next frame}
+                \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)}             \PY{c+c1}{\PYZsh{} control framerate for computation \PYZhy{} default 20 frames per sec}
+                \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Call the laptop camera face/eye detector function above}
+        \PY{n}{laptop\PYZus{}camera\PYZus{}go}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Note}: the function call above crashes when I use AWS GPU
+instance.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-2-de-noise-an-image-for-better-face-detection}{%
+\subsection{Step 2: De-noise an Image for Better Face
+Detection}\label{step-2-de-noise-an-image-for-better-face-detection}}
+
+    Image quality is an important aspect of any computer vision task.
+Typically, when creating a set of images to train a deep learning
+network, significant care is taken to ensure that training images are
+free of visual noise or artifacts that hinder object detection. While
+computer vision algorithms - like a face detector - are typically
+trained on `nice' data such as this, new test data doesn't always look
+so nice!
+
+When applying a trained computer vision algorithm to a new piece of test
+data one often cleans it up first before feeding it in. This sort of
+cleaning - referred to as \emph{pre-processing} - can include a number
+of cleaning phases like blurring, de-noising, color transformations,
+etc., and many of these tasks can be accomplished using OpenCV.
+
+In this short subsection we explore OpenCV's noise-removal functionality
+to see how we can clean up a noisy image, which we then feed into our
+trained face detector.
+
+    \hypertarget{create-a-noisy-image-to-work-with}{%
+\subsubsection{Create a noisy image to work
+with}\label{create-a-noisy-image-to-work-with}}
+
+In the next cell, we create an artificial noisy version of the previous
+multi-face image. This is a little exaggerated - we don't typically get
+images that are this noisy - but
+\href{https://digital-photography-school.com/how-to-avoid-and-reduce-noise-in-your-images/}{image
+noise}, or `grainy-ness' in a digitial image - is a fairly common
+phenomenon.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Load in the multi\PYZhy{}face test image again}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/test\PYZus{}image\PYZus{}1.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Convert the image copy to RGB colorspace}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make an array copy of this image}
+         \PY{n}{image\PYZus{}with\PYZus{}noise} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create noise \PYZhy{} here we add noise sampled randomly from a Gaussian distribution: a common model for noise}
+         \PY{n}{noise\PYZus{}level} \PY{o}{=} \PY{l+m+mi}{40}
+         \PY{n}{noise} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{noise\PYZus{}level}
+         
+         \PY{c+c1}{\PYZsh{} Add this noise to the array image copy}
+         \PY{n}{image\PYZus{}with\PYZus{}noise} \PY{o}{=} \PY{n}{image\PYZus{}with\PYZus{}noise} \PY{o}{+} \PY{n}{noise}
+         
+         \PY{c+c1}{\PYZsh{} Convert back to uint8 format}
+         \PY{n}{image\PYZus{}with\PYZus{}noise} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{clip}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{image\PYZus{}with\PYZus{}noise}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot our noisy image!}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noisy Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}noise}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.image.AxesImage at 0x1267cdf98>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the context of face detection, the problem with an image like this is
+that - due to noise - we may miss some faces or get false detections.
+
+In the next cell we apply the same trained OpenCV detector with the same
+settings as before, to see what sort of detections we get.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Convert the RGB  image to grayscale}
+         \PY{n}{gray\PYZus{}noise} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}noise}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Extract the pre\PYZhy{}trained face detector from an xml file}
+         \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Detect the faces in image}
+         \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray\PYZus{}noise}\PY{p}{,} \PY{l+m+mf}{1.25}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print the number of faces detected in the image}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of faces detected:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make a copy of the orginal image to draw face detections on}
+         \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}noise}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Get the bounding box for each detected face}
+         \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Add a red bounding box to the detections image}
+             \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+             
+         
+         \PY{c+c1}{\PYZsh{} Display the image with the detections}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noisy Image with Face Detections}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of faces detected: 14
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <matplotlib.image.AxesImage at 0x1268836a0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    With this added noise we now miss one of the faces!
+
+\textbf{Note}: not really, sometimes, depending on initialization, it
+recognizes all of them, or detects one more, or misses one :)
+
+    \hypertarget{implementation-de-noise-this-image-for-better-face-detection}{%
+\subsubsection{(IMPLEMENTATION) De-noise this image for better face
+detection}\label{implementation-de-noise-this-image-for-better-face-detection}}
+
+Time to get your hands dirty: using OpenCV's built in color image
+de-noising functionality called \texttt{fastNlMeansDenoisingColored} -
+de-noise this image enough so that all the faces in the image are
+properly detected. Once you have cleaned the image in the next cell, use
+the cell that follows to run our trained face detector over the cleaned
+image to check out its detections.
+
+You can find its {[}official documentation
+here{]}(\href{http://docs.opencv.org/trunk/d1/d79/group__photo__denoise.html\#ga21abc1c8b0e15f78cd3eff672cb6c476}{documentation
+for denoising} and
+\href{http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_photo/py_non_local_means/py_non_local_means.html}{a
+useful example here}.
+
+\textbf{Note:} you can keep all parameters \emph{except}
+\texttt{photo\_render} fixed as shown in the second link above. Play
+around with the value of this parameter - see how it affects the
+resulting cleaned image.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Use OpenCV\PYZsq{}s built in color image de\PYZhy{}noising function to clean up our noisy image!}
+         \PY{n}{dst} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{fastNlMeansDenoisingColored}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}noise}\PY{p}{,}\PY{k+kc}{None}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}\PY{p}{,}\PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}noise}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}\PY{p}{,}\PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{dst}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{denoised\PYZus{}image} \PY{o}{=} \PY{n}{dst} \PY{c+c1}{\PYZsh{} your final de\PYZhy{}noised image (should be RGB)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Run the face detector on the de\PYZhy{}noised image to improve your detections and display the result}
+         \PY{n}{image\PYZus{}with\PYZus{}detections} \PY{o}{=} \PY{n}{face\PYZus{}detection}\PY{p}{(}\PY{n}{dst}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} Display the image with the detections}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noisy Image with Face Detections}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}detections}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of faces detected: 13
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.image.AxesImage at 0x127e0b048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-3-blur-an-image-and-perform-edge-detection}{%
+\subsection{Step 3: Blur an Image and Perform Edge
+Detection}\label{step-3-blur-an-image-and-perform-edge-detection}}
+
+    Now that we have developed a simple pipeline for detecting faces using
+OpenCV - let's start playing around with a few fun things we can do with
+all those detected faces!
+
+    \hypertarget{importance-of-blur-in-edge-detection}{%
+\subsubsection{Importance of Blur in Edge
+Detection}\label{importance-of-blur-in-edge-detection}}
+
+Edge detection is a concept that pops up almost everywhere in computer
+vision applications, as edge-based features (as well as features built
+on top of edges) are often some of the best features for e.g., object
+detection and recognition problems.
+
+Edge detection is a dimension reduction technique - by keeping only the
+edges of an image we get to throw away a lot of non-discriminating
+information. And typically the most useful kind of edge-detection is one
+that preserves only the important, global structures (ignoring local
+structures that aren't very discriminative). So removing local
+structures / retaining global structures is a crucial pre-processing
+step to performing edge detection in an image, and blurring can do just
+that.
+
+Below is an animated gif showing the result of an edge-detected cat
+\href{https://en.wikipedia.org/wiki/Gaussian_blur\#Common_uses}{taken
+from Wikipedia}, where the image is gradually blurred more and more
+prior to edge detection. When the animation begins you can't quite make
+out what it's a picture of, but as the animation evolves and local
+structures are removed via blurring the cat becomes visible in the
+edge-detected image.
+
+Edge detection is a \textbf{convolution} performed on the image itself,
+and you can read about Canny edge detection on
+\href{http://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny_detector/canny_detector.html}{this
+OpenCV documentation page}.
+
+    \hypertarget{canny-edge-detection}{%
+\subsubsection{Canny edge detection}\label{canny-edge-detection}}
+
+In the cell below we load in a test image, then apply \emph{Canny edge
+detection} on it. The original image is shown on the left panel of the
+figure, while the edge-detected version of the image is shown on the
+right. Notice how the result looks very busy - there are too many little
+details preserved in the image before it is sent to the edge detector.
+When applied in computer vision applications, edge detection should
+preserve \emph{global} structure; doing away with local structures that
+don't help describe what objects are in the image.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Load in the image}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/fawzia.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Convert to RGB colorspace}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Convert to grayscale}
+         \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}  
+         
+         \PY{c+c1}{\PYZsh{} Perform Canny edge detection}
+         \PY{n}{edges} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{gray}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Dilate the image to amplify edges}
+         \PY{n}{edges} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{dilate}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the RGB and edge\PYZhy{}detected image}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canny Edges}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <matplotlib.image.AxesImage at 0x127de9ba8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Without first blurring the image, and removing small, local structures,
+a lot of irrelevant edge content gets picked up and amplified by the
+detector (as shown in the right panel above).
+
+    \hypertarget{implementation-blur-the-image-then-perform-edge-detection}{%
+\subsubsection{\texorpdfstring{(IMPLEMENTATION) Blur the image
+\emph{then} perform edge
+detection}{(IMPLEMENTATION) Blur the image then perform edge detection}}\label{implementation-blur-the-image-then-perform-edge-detection}}
+
+In the next cell, you will repeat this experiment - blurring the image
+first to remove these local structures, so that only the important
+boudnary details remain in the edge-detected image.
+
+Blur the image by using OpenCV's \texttt{filter2d} functionality - which
+is discussed in
+\href{http://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html}{this
+documentation page} - and use an \emph{averaging kernel} of width equal
+to 4.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} TODO: Blur the test imageusing OpenCV\PYZsq{}s filter2d functionality, }
+         \PY{c+c1}{\PYZsh{} Use an averaging kernel, and a kernel width equal to 4}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Then perform Canny edge detection and display the output}
+         
+         \PY{c+c1}{\PYZsh{} Bluring}
+         \PY{n}{kernel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{16}
+         \PY{n}{blur\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{filter2D}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{kernel}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Edge detection}
+         \PY{n}{edges} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{Canny}\PY{p}{(}\PY{n}{blur\PYZus{}image}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}
+         \PY{n}{edges} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{dilate}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the RGB and edge\PYZhy{}detected image}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blurred Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{blur\PYZus{}image}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blurred Image edges}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{edges}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <matplotlib.image.AxesImage at 0x11fa31ba8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-4-automatically-hide-the-identity-of-an-individual}{%
+\subsection{Step 4: Automatically Hide the Identity of an
+Individual}\label{step-4-automatically-hide-the-identity-of-an-individual}}
+
+If you film something like a documentary or reality TV, you must get
+permission from every individual shown on film before you can show their
+face, otherwise you need to blur it out - by blurring the face a lot (so
+much so that even the global structures are obscured)! This is also true
+for projects like \href{https://www.google.com/streetview/}{Google's
+StreetView maps} - an enormous collection of mapping images taken from a
+fleet of Google vehicles. Because it would be impossible for Google to
+get the permission of every single person accidentally captured in one
+of these images they blur out everyone's faces, the detected images must
+automatically blur the identity of detected people. Here's a few
+examples of folks caught in the camera of a Google street view vehicle.
+
+ 
+
+    \hypertarget{read-in-an-image-to-perform-identity-detection}{%
+\subsubsection{Read in an image to perform identity
+detection}\label{read-in-an-image-to-perform-identity-detection}}
+
+Let's try this out for ourselves. Use the face detection pipeline built
+above and what you know about using the \texttt{filter2D} to blur and
+image, and use these in tandem to hide the identity of the person in the
+following image - loaded in and printed in the next cell.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Load in the image}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/gus.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Convert the image to RGB colorspace}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Display the image}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <matplotlib.image.AxesImage at 0x11f9867f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{implementation-use-blurring-to-hide-the-identity-of-an-individual-in-an-image}{%
+\subsubsection{(IMPLEMENTATION) Use blurring to hide the identity of an
+individual in an
+image}\label{implementation-use-blurring-to-hide-the-identity-of-an-individual-in-an-image}}
+
+The idea here is to 1) automatically detect the face in this image, and
+then 2) blur it out! Make sure to adjust the parameters of the
+\emph{averaging} blur filter to completely obscure this person's
+identity.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Blur the bounding box around each detected face using an averaging filter and display the result}
+         \PY{k}{def} \PY{n+nf}{blur\PYZus{}face}\PY{p}{(}\PY{n}{image}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} first detect face}
+             \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+             \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         
+             \PY{n}{masked\PYZus{}image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} make a strong averaging kernel}
+             \PY{n}{kernel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{1681}
+             \PY{n}{blur\PYZus{}image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{filter2D}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{kernel}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Get the bounding box for each detected face}
+             \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} change pixel value to those of blurred image}
+                 \PY{n}{masked\PYZus{}image}\PY{p}{[}\PY{n}{y}\PY{p}{:}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{]} \PY{o}{=} \PY{n}{blur\PYZus{}image}\PY{p}{[}\PY{n}{y}\PY{p}{:}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{masked\PYZus{}image}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Blur the bounding box around each detected face using an averaging filter and display the result}
+         
+         \PY{c+c1}{\PYZsh{} function is defined above}
+         \PY{n}{masked\PYZus{}face} \PY{o}{=} \PY{n}{blur\PYZus{}face}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} Plot the RGB and edge\PYZhy{}detected image}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blurred Face}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{masked\PYZus{}face}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <matplotlib.image.AxesImage at 0x131905b38>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{optional-build-identity-protection-into-your-laptop-camera}{%
+\subsubsection{(Optional) Build identity protection into your laptop
+camera}\label{optional-build-identity-protection-into-your-laptop-camera}}
+
+In this optional task you can add identity protection to your laptop
+camera, using the previously completed code where you added face
+detection to your laptop camera - and the task above. You should be able
+to get reasonable results with little parameter tuning - like the one
+shown in the gif below.
+
+As with the previous video task, to make this perfect would require
+significant effort - so don't strive for perfection here, strive for
+reasonable quality.
+
+The next cell contains code a wrapper function called
+\texttt{laptop\_camera\_identity\_hider} that - when called - will
+activate your laptop's camera. You need to place the relevant face
+detection and blurring code developed above in this function in order to
+blur faces entering your laptop camera's field of view.
+
+Before adding anything to the function you can call it to get a hang of
+how it works - a small window will pop up showing you the live feed from
+your camera, you can press any key to close this window.
+
+\textbf{Note:} Mac users may find that activating this function kills
+the kernel of their notebook every once in a while. If this happens to
+you, just restart your notebook's kernel, activate cell(s) containing
+any crucial import statements, and you'll be good to go!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Insert face detection and blurring code into the wrapper below to create an identity protector on your laptop!}
+         \PY{k+kn}{import} \PY{n+nn}{cv2}
+         \PY{k+kn}{import} \PY{n+nn}{time} 
+         
+         \PY{k}{def} \PY{n+nf}{laptop\PYZus{}camera\PYZus{}identity\PYZus{}hider}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Create instance of video capturer}
+             \PY{n}{cv2}\PY{o}{.}\PY{n}{namedWindow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{face masking activated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} make a strong averaging kernel}
+             \PY{n}{kernel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{41}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{1681}
+         
+             \PY{c+c1}{\PYZsh{} start stream}
+             \PY{n}{vc} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoCapture}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Try to get the first frame}
+             \PY{k}{if} \PY{n}{vc}\PY{o}{.}\PY{n}{isOpened}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{rval} \PY{o}{=} \PY{k+kc}{False}
+             
+             \PY{c+c1}{\PYZsh{} Keep the video stream open}
+             \PY{k}{while} \PY{n}{rval}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} just call the tested function}
+                 \PY{n}{frame} \PY{o}{=} \PY{n}{blur\PYZus{}face}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Plot the image from camera with all the face and eye detections marked}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{face detection activated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Exit functionality \PYZhy{} press any key to exit laptop video}
+                 \PY{n}{key} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{key} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{} Exit by pressing any key}
+                     \PY{c+c1}{\PYZsh{} Destroy windows }
+                     \PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} Make sure window closes on OSx}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{k}{return}
+                 
+                 \PY{c+c1}{\PYZsh{} Read next frame}
+                 \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)}             \PY{c+c1}{\PYZsh{} control framerate for computation \PYZhy{} default 20 frames per sec}
+                 \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)} 
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Run laptop identity hider}
+         \PY{n}{laptop\PYZus{}camera\PYZus{}identity\PYZus{}hider}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Note}: crashed when I run it on AWS instance, works well locally
+on Mac.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-5-create-a-cnn-to-recognize-facial-keypoints}{%
+\subsection{Step 5: Create a CNN to Recognize Facial
+Keypoints}\label{step-5-create-a-cnn-to-recognize-facial-keypoints}}
+
+OpenCV is often used in practice with other machine learning and deep
+learning libraries to produce interesting results. In this stage of the
+project you will create your own end-to-end pipeline - employing
+convolutional networks in keras along with OpenCV - to apply a
+``selfie'' filter to streaming video and images.
+
+You will start by creating and then training a convolutional network
+that can detect facial keypoints in a small dataset of cropped images of
+human faces. We then guide you towards OpenCV to expanding your
+detection algorithm to more general images. What are facial keypoints?
+Let's take a look at some examples.
+
+Facial keypoints (also called facial landmarks) are the small blue-green
+dots shown on each of the faces in the image above - there are 15
+keypoints marked in each image. They mark important areas of the face -
+the eyes, corners of the mouth, the nose, etc. Facial keypoints can be
+used in a variety of machine learning applications from face and emotion
+recognition to commercial applications like the image filters
+popularized by Snapchat.
+
+Below we illustrate a filter that, using the results of this section,
+automatically places sunglasses on people in images (using the facial
+keypoints to place the glasses correctly on each face). Here, the facial
+keypoints have been colored lime green for visualization purposes.
+
+    \hypertarget{make-a-facial-keypoint-detector}{%
+\subsubsection{Make a facial keypoint
+detector}\label{make-a-facial-keypoint-detector}}
+
+But first things first: how can we make a facial keypoint detector?
+Well, at a high level, notice that facial keypoint detection is a
+\emph{regression problem}. A single face corresponds to a set of 15
+facial keypoints (a set of 15 corresponding \((x, y)\) coordinates,
+i.e., an output point). Because our input data are images, we can employ
+a \emph{convolutional neural network} to recognize patterns in our
+images and learn how to identify these keypoint given sets of labeled
+data.
+
+In order to train a regressor, we need a training set - a set of facial
+image / facial keypoint pairs to train on. For this we will be using
+\href{https://www.kaggle.com/c/facial-keypoints-detection/data}{this
+dataset from Kaggle}. We've already downloaded this data and placed it
+in the \texttt{data} directory. Make sure that you have both the
+\emph{training} and \emph{test} data files. The training dataset
+contains several thousand \(96 \times 96\) grayscale images of cropped
+human faces, along with each face's 15 corresponding facial keypoints
+(also called landmarks) that have been placed by hand, and recorded in
+\((x, y)\) coordinates. This wonderful resource also has a substantial
+testing set, which we will use in tinkering with our convolutional
+network.
+
+To load in this data, run the Python cell below - notice we will load in
+both the training and testing sets.
+
+The \texttt{load\_data} function is in the included \texttt{utils.py}
+file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{utils} \PY{k}{import} \PY{o}{*}
+         
+         \PY{c+c1}{\PYZsh{} Load training set}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{load\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}train.shape == }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y\PYZus{}train.shape == }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{; y\PYZus{}train.min == }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{; y\PYZus{}train.max == }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+             \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Load testing set}
+         \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{load\PYZus{}data}\PY{p}{(}\PY{n}{test}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}test.shape == }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+X\_train.shape == (2140, 96, 96, 1)
+y\_train.shape == (2140, 30); y\_train.min == -0.920; y\_train.max == 0.996
+X\_test.shape == (1783, 96, 96, 1)
+
+    \end{Verbatim}
+
+    The \texttt{load\_data} function in \texttt{utils.py} originates from
+this excellent
+\href{http://danielnouri.org/notes/2014/12/17/using-convolutional-neural-nets-to-detect-facial-keypoints-tutorial/}{blog
+post}, which you are \emph{strongly} encouraged to read. Please take the
+time now to review this function. Note how the output values - that is,
+the coordinates of each set of facial landmarks - have been normalized
+to take on values in the range \([-1, 1]\), while the pixel values of
+each input point (a facial image) have been normalized to the range
+\([0,1]\).
+
+Note: the original Kaggle dataset contains some images with several
+missing keypoints. For simplicity, the \texttt{load\_data} function
+removes those images with missing labels from the dataset. As an
+\textbf{\emph{optional}} extension, you are welcome to amend the
+\texttt{load\_data} function to include the incomplete data points.
+
+    \hypertarget{visualize-the-training-data}{%
+\subsubsection{Visualize the Training
+Data}\label{visualize-the-training-data}}
+
+Execute the code cell below to visualize a subset of the training data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{left}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{xticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For each training image, there are two landmarks per eyebrow
+(\textbf{four} total), three per eye (\textbf{six} total), \textbf{four}
+for the mouth, and \textbf{one} for the tip of the nose.
+
+Review the \texttt{plot\_data} function in \texttt{utils.py} to
+understand how the 30-dimensional training labels in \texttt{y\_train}
+are mapped to facial locations, as this function will prove useful for
+your pipeline.
+
+    \hypertarget{implementation-specify-the-cnn-architecture}{%
+\subsubsection{(IMPLEMENTATION) Specify the CNN
+Architecture}\label{implementation-specify-the-cnn-architecture}}
+
+In this section, you will specify a neural network for predicting the
+locations of facial keypoints. Use the code cell below to specify the
+architecture of your neural network. We have imported some layers that
+you may find useful for this task, but if you need to use more Keras
+layers, feel free to import them in the cell.
+
+Your network should accept a \(96 \times 96\) grayscale image as input,
+and it should output a vector with 30 entries, corresponding to the
+predicted (horizontal and vertical) locations of 15 facial keypoints. If
+you are not sure where to start, you can find some useful starting
+architectures in
+\href{http://danielnouri.org/notes/2014/12/17/using-convolutional-neural-nets-to-detect-facial-keypoints-tutorial/}{this
+blog}, but you are not permitted to copy any of the architectures that
+you find online.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Import deep learning resources from Keras}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Convolution2D}\PY{p}{,} \PY{n}{MaxPooling2D}\PY{p}{,} \PY{n}{Dropout}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Flatten}\PY{p}{,} \PY{n}{Dense}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Specify a CNN architecture}
+         \PY{c+c1}{\PYZsh{} Your model should accept 96x96 pixel graysale images in}
+         \PY{c+c1}{\PYZsh{} It should have a fully\PYZhy{}connected output layer with 30 values (2 for each facial keypoint)}
+         
+         
+         \PY{c+c1}{\PYZsh{} I\PYZsq{}ll package the model into a function to help with weights reset for later use}
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}model}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} first set of conv2D and maxpool}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Convolution2D}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     model.add(Dropout(0.2))}
+         
+             \PY{c+c1}{\PYZsh{} second set of conv2D and maxpool}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Convolution2D}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     model.add(Dropout(0.2))}
+         
+             \PY{c+c1}{\PYZsh{} now flatten, add one additional dense layer and output the required amount of features = 30}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{model}
+             
+         \PY{c+c1}{\PYZsh{} Summarize the model}
+         \PY{n}{model} \PY{o}{=} \PY{n}{create\PYZus{}model}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+conv2d\_1 (Conv2D)            (None, 92, 92, 32)        832       
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_1 (MaxPooling2 (None, 46, 46, 32)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_2 (Conv2D)            (None, 42, 42, 64)        51264     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_2 (MaxPooling2 (None, 21, 21, 64)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+flatten\_1 (Flatten)          (None, 28224)             0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_1 (Dense)              (None, 64)                1806400   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_2 (Dense)              (None, 30)                1950      
+=================================================================
+Total params: 1,860,446
+Trainable params: 1,860,446
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \textbf{Note}: we'll use fairly typical convNet architecture, with two
+sets of conv2D followed by maxpool. I added the dropout to avoid
+overfitting, although I haven't observed any even without it. At the end
+I added one more dense layer with relu activation, and the final dense
+layer with required output dimensions.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-6-compile-and-train-the-model}{%
+\subsection{Step 6: Compile and Train the
+Model}\label{step-6-compile-and-train-the-model}}
+
+After specifying your architecture, you'll need to compile and train the
+model to detect facial keypoints'
+
+    \hypertarget{implementation-compile-and-train-the-model}{%
+\subsubsection{(IMPLEMENTATION) Compile and Train the
+Model}\label{implementation-compile-and-train-the-model}}
+
+Use the \texttt{compile}
+\href{https://keras.io/models/sequential/\#sequential-model-methods}{method}
+to configure the learning process. Experiment with your choice of
+\href{https://keras.io/optimizers/}{optimizer}; you may have some ideas
+about which will work best (\texttt{SGD} vs. \texttt{RMSprop}, etc), but
+take the time to empirically verify your theories.
+
+Use the \texttt{fit}
+\href{https://keras.io/models/sequential/\#sequential-model-methods}{method}
+to train the model. Break off a validation set by setting
+\texttt{validation\_split=0.2}. Save the returned \texttt{History}
+object in the \texttt{history} variable.
+
+Experiment with your model to minimize the validation loss (measured as
+mean squared error). A very good model will achieve about 0.0015 loss
+(though it's possible to do even better). When you have finished
+training,
+\href{https://keras.io/getting-started/faq/\#how-can-i-save-a-keras-model}{save
+your model} as an HDF5 file with file path \texttt{my\_model.h5}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{Callback}
+         \PY{c+c1}{\PYZsh{} time callback to store execution time for comparison purposes}
+         \PY{c+c1}{\PYZsh{} inspiration: https://stackoverflow.com/questions/43178668/record\PYZhy{}the\PYZhy{}computation\PYZhy{}time\PYZhy{}for\PYZhy{}each\PYZhy{}epoch\PYZhy{}in\PYZhy{}keras\PYZhy{}during\PYZhy{}model\PYZhy{}fit}
+         \PY{k}{class} \PY{n+nc}{TimeHistory}\PY{p}{(}\PY{n}{Callback}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}train\PYZus{}begin}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{total\PYZus{}time} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}epoch\PYZus{}begin}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epoch\PYZus{}time\PYZus{}start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{on\PYZus{}epoch\PYZus{}end}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{batch}\PY{p}{,} \PY{n}{logs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{total\PYZus{}time} \PY{o}{+}\PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epoch\PYZus{}time\PYZus{}start}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}\PY{p}{,} \PY{n}{RMSprop}\PY{p}{,} \PY{n}{Adagrad}\PY{p}{,} \PY{n}{Adadelta}\PY{p}{,} \PY{n}{Adam}\PY{p}{,} \PY{n}{Adamax}\PY{p}{,} \PY{n}{Nadam}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{ModelCheckpoint}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{initializers} \PY{k}{import} \PY{n}{glorot\PYZus{}uniform}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Compile the model}
+         \PY{c+c1}{\PYZsh{} we\PYZsq{}ll use MSE as loss as this is the regression problem}
+         \PY{c+c1}{\PYZsh{} we\PYZsq{}ll also do several optimizers}
+         \PY{n}{opts} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sgd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adagrad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adadelta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adamax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nadam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} init result dicts}
+         \PY{n}{times} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{train\PYZus{}losses} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{val\PYZus{}losses} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{\PYZus{}o} \PY{o+ow}{in} \PY{n}{opts}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training using }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{\PYZus{}o}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} reset weights}
+             \PY{n}{model} \PY{o}{=} \PY{n}{create\PYZus{}model}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} compile and go}
+             \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{n}{\PYZus{}o}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Train the model}
+             \PY{n}{checkpointer} \PY{o}{=} \PY{n}{ModelCheckpoint}\PY{p}{(}\PY{n}{filepath}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZus{}best\PYZus{}weights.h5}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{\PYZus{}o}\PY{p}{)}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{save\PYZus{}best\PYZus{}only}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{timer} \PY{o}{=} \PY{n}{TimeHistory}\PY{p}{(}\PY{p}{)}
+             \PY{n}{hist} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                          \PY{n}{validation\PYZus{}split}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{checkpointer}\PY{p}{,} \PY{n}{timer}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} store results}
+             \PY{n}{times}\PY{p}{[}\PY{n}{\PYZus{}o}\PY{p}{]} \PY{o}{=} \PY{n}{timer}\PY{o}{.}\PY{n}{total\PYZus{}time}
+             \PY{n}{train\PYZus{}losses}\PY{p}{[}\PY{n}{\PYZus{}o}\PY{p}{]} \PY{o}{=} \PY{n}{hist}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{val\PYZus{}losses}\PY{p}{[}\PY{n}{\PYZus{}o}\PY{p}{]} \PY{o}{=} \PY{n}{hist}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=============}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Save the model as model.h5}
+             \PY{n}{model}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZus{}my\PYZus{}model.h5}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{\PYZus{}o}\PY{p}{)}\PY{p}{)}
+             
+         
+         \PY{c+c1}{\PYZsh{} save results to avoid re\PYZhy{}fitting everytime after jupyter restart}
+         \PY{k+kn}{import} \PY{n+nn}{pickle}
+         
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}losses.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{\PYZus{}f}\PY{p}{:}
+             \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{train\PYZus{}losses}\PY{p}{,} \PY{n}{\PYZus{}f}\PY{p}{)}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}losses.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{\PYZus{}f}\PY{p}{:}
+             \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{val\PYZus{}losses}\PY{p}{,} \PY{n}{\PYZus{}f}\PY{p}{)}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{times.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{\PYZus{}f}\PY{p}{:}
+             \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{times}\PY{p}{,} \PY{n}{\PYZus{}f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training using rmsprop
+Epoch 00000: val\_loss improved from inf to 0.07964, saving model to rmsprop\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.07964 to 0.07614, saving model to rmsprop\_best\_weights.h5
+Epoch 00002: val\_loss improved from 0.07614 to 0.05009, saving model to rmsprop\_best\_weights.h5
+Epoch 00003: val\_loss improved from 0.05009 to 0.03398, saving model to rmsprop\_best\_weights.h5
+Epoch 00004: val\_loss improved from 0.03398 to 0.01674, saving model to rmsprop\_best\_weights.h5
+Epoch 00005: val\_loss improved from 0.01674 to 0.00973, saving model to rmsprop\_best\_weights.h5
+Epoch 00006: val\_loss improved from 0.00973 to 0.00794, saving model to rmsprop\_best\_weights.h5
+Epoch 00007: val\_loss improved from 0.00794 to 0.00736, saving model to rmsprop\_best\_weights.h5
+Epoch 00008: val\_loss did not improve
+Epoch 00009: val\_loss improved from 0.00736 to 0.00720, saving model to rmsprop\_best\_weights.h5
+Epoch 00010: val\_loss improved from 0.00720 to 0.00667, saving model to rmsprop\_best\_weights.h5
+Epoch 00011: val\_loss improved from 0.00667 to 0.00647, saving model to rmsprop\_best\_weights.h5
+Epoch 00012: val\_loss improved from 0.00647 to 0.00508, saving model to rmsprop\_best\_weights.h5
+Epoch 00013: val\_loss did not improve
+Epoch 00014: val\_loss improved from 0.00508 to 0.00424, saving model to rmsprop\_best\_weights.h5
+Epoch 00015: val\_loss did not improve
+Epoch 00016: val\_loss did not improve
+Epoch 00017: val\_loss did not improve
+Epoch 00018: val\_loss did not improve
+Epoch 00019: val\_loss did not improve
+Epoch 00020: val\_loss improved from 0.00424 to 0.00365, saving model to rmsprop\_best\_weights.h5
+Epoch 00021: val\_loss did not improve
+Epoch 00022: val\_loss did not improve
+Epoch 00023: val\_loss improved from 0.00365 to 0.00363, saving model to rmsprop\_best\_weights.h5
+Epoch 00024: val\_loss did not improve
+Epoch 00025: val\_loss improved from 0.00363 to 0.00353, saving model to rmsprop\_best\_weights.h5
+Epoch 00026: val\_loss improved from 0.00353 to 0.00339, saving model to rmsprop\_best\_weights.h5
+Epoch 00027: val\_loss did not improve
+Epoch 00028: val\_loss did not improve
+Epoch 00029: val\_loss did not improve
+Epoch 00030: val\_loss improved from 0.00339 to 0.00300, saving model to rmsprop\_best\_weights.h5
+Epoch 00031: val\_loss improved from 0.00300 to 0.00290, saving model to rmsprop\_best\_weights.h5
+Epoch 00032: val\_loss did not improve
+Epoch 00033: val\_loss did not improve
+Epoch 00034: val\_loss did not improve
+Epoch 00035: val\_loss improved from 0.00290 to 0.00259, saving model to rmsprop\_best\_weights.h5
+Epoch 00036: val\_loss did not improve
+Epoch 00037: val\_loss did not improve
+Epoch 00038: val\_loss did not improve
+Epoch 00039: val\_loss improved from 0.00259 to 0.00217, saving model to rmsprop\_best\_weights.h5
+=============
+
+Training using sgd
+Epoch 00000: val\_loss improved from inf to 0.06966, saving model to sgd\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.06966 to 0.05290, saving model to sgd\_best\_weights.h5
+Epoch 00002: val\_loss improved from 0.05290 to 0.04194, saving model to sgd\_best\_weights.h5
+Epoch 00003: val\_loss improved from 0.04194 to 0.03505, saving model to sgd\_best\_weights.h5
+Epoch 00004: val\_loss improved from 0.03505 to 0.03031, saving model to sgd\_best\_weights.h5
+Epoch 00005: val\_loss improved from 0.03031 to 0.02660, saving model to sgd\_best\_weights.h5
+Epoch 00006: val\_loss improved from 0.02660 to 0.02331, saving model to sgd\_best\_weights.h5
+Epoch 00007: val\_loss improved from 0.02331 to 0.02061, saving model to sgd\_best\_weights.h5
+Epoch 00008: val\_loss improved from 0.02061 to 0.01835, saving model to sgd\_best\_weights.h5
+Epoch 00009: val\_loss improved from 0.01835 to 0.01651, saving model to sgd\_best\_weights.h5
+Epoch 00010: val\_loss improved from 0.01651 to 0.01503, saving model to sgd\_best\_weights.h5
+Epoch 00011: val\_loss improved from 0.01503 to 0.01387, saving model to sgd\_best\_weights.h5
+Epoch 00012: val\_loss improved from 0.01387 to 0.01296, saving model to sgd\_best\_weights.h5
+Epoch 00013: val\_loss improved from 0.01296 to 0.01225, saving model to sgd\_best\_weights.h5
+Epoch 00014: val\_loss improved from 0.01225 to 0.01165, saving model to sgd\_best\_weights.h5
+Epoch 00015: val\_loss improved from 0.01165 to 0.01118, saving model to sgd\_best\_weights.h5
+Epoch 00016: val\_loss improved from 0.01118 to 0.01084, saving model to sgd\_best\_weights.h5
+Epoch 00017: val\_loss improved from 0.01084 to 0.01051, saving model to sgd\_best\_weights.h5
+Epoch 00018: val\_loss improved from 0.01051 to 0.01025, saving model to sgd\_best\_weights.h5
+Epoch 00019: val\_loss improved from 0.01025 to 0.01009, saving model to sgd\_best\_weights.h5
+Epoch 00020: val\_loss improved from 0.01009 to 0.00989, saving model to sgd\_best\_weights.h5
+Epoch 00021: val\_loss improved from 0.00989 to 0.00971, saving model to sgd\_best\_weights.h5
+Epoch 00022: val\_loss improved from 0.00971 to 0.00962, saving model to sgd\_best\_weights.h5
+Epoch 00023: val\_loss improved from 0.00962 to 0.00947, saving model to sgd\_best\_weights.h5
+Epoch 00024: val\_loss improved from 0.00947 to 0.00935, saving model to sgd\_best\_weights.h5
+Epoch 00025: val\_loss improved from 0.00935 to 0.00926, saving model to sgd\_best\_weights.h5
+Epoch 00026: val\_loss improved from 0.00926 to 0.00916, saving model to sgd\_best\_weights.h5
+Epoch 00027: val\_loss improved from 0.00916 to 0.00908, saving model to sgd\_best\_weights.h5
+Epoch 00028: val\_loss improved from 0.00908 to 0.00900, saving model to sgd\_best\_weights.h5
+Epoch 00029: val\_loss improved from 0.00900 to 0.00894, saving model to sgd\_best\_weights.h5
+Epoch 00030: val\_loss improved from 0.00894 to 0.00885, saving model to sgd\_best\_weights.h5
+Epoch 00031: val\_loss improved from 0.00885 to 0.00878, saving model to sgd\_best\_weights.h5
+Epoch 00032: val\_loss improved from 0.00878 to 0.00872, saving model to sgd\_best\_weights.h5
+Epoch 00033: val\_loss improved from 0.00872 to 0.00865, saving model to sgd\_best\_weights.h5
+Epoch 00034: val\_loss improved from 0.00865 to 0.00859, saving model to sgd\_best\_weights.h5
+Epoch 00035: val\_loss improved from 0.00859 to 0.00852, saving model to sgd\_best\_weights.h5
+Epoch 00036: val\_loss improved from 0.00852 to 0.00848, saving model to sgd\_best\_weights.h5
+Epoch 00037: val\_loss improved from 0.00848 to 0.00841, saving model to sgd\_best\_weights.h5
+Epoch 00038: val\_loss improved from 0.00841 to 0.00835, saving model to sgd\_best\_weights.h5
+Epoch 00039: val\_loss improved from 0.00835 to 0.00831, saving model to sgd\_best\_weights.h5
+=============
+
+Training using adagrad
+Epoch 00000: val\_loss improved from inf to 0.05565, saving model to adagrad\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.05565 to 0.04595, saving model to adagrad\_best\_weights.h5
+Epoch 00002: val\_loss did not improve
+Epoch 00003: val\_loss did not improve
+Epoch 00004: val\_loss did not improve
+Epoch 00005: val\_loss improved from 0.04595 to 0.04455, saving model to adagrad\_best\_weights.h5
+Epoch 00006: val\_loss improved from 0.04455 to 0.04346, saving model to adagrad\_best\_weights.h5
+Epoch 00007: val\_loss improved from 0.04346 to 0.04245, saving model to adagrad\_best\_weights.h5
+Epoch 00008: val\_loss improved from 0.04245 to 0.04155, saving model to adagrad\_best\_weights.h5
+Epoch 00009: val\_loss improved from 0.04155 to 0.04087, saving model to adagrad\_best\_weights.h5
+Epoch 00010: val\_loss improved from 0.04087 to 0.04023, saving model to adagrad\_best\_weights.h5
+Epoch 00011: val\_loss improved from 0.04023 to 0.03959, saving model to adagrad\_best\_weights.h5
+Epoch 00012: val\_loss improved from 0.03959 to 0.03352, saving model to adagrad\_best\_weights.h5
+Epoch 00013: val\_loss improved from 0.03352 to 0.03254, saving model to adagrad\_best\_weights.h5
+Epoch 00014: val\_loss improved from 0.03254 to 0.03173, saving model to adagrad\_best\_weights.h5
+Epoch 00015: val\_loss improved from 0.03173 to 0.03090, saving model to adagrad\_best\_weights.h5
+Epoch 00016: val\_loss improved from 0.03090 to 0.03000, saving model to adagrad\_best\_weights.h5
+Epoch 00017: val\_loss did not improve
+Epoch 00018: val\_loss improved from 0.03000 to 0.02946, saving model to adagrad\_best\_weights.h5
+Epoch 00019: val\_loss improved from 0.02946 to 0.02840, saving model to adagrad\_best\_weights.h5
+Epoch 00020: val\_loss did not improve
+Epoch 00021: val\_loss improved from 0.02840 to 0.02668, saving model to adagrad\_best\_weights.h5
+Epoch 00022: val\_loss did not improve
+Epoch 00023: val\_loss improved from 0.02668 to 0.02525, saving model to adagrad\_best\_weights.h5
+Epoch 00024: val\_loss did not improve
+Epoch 00025: val\_loss improved from 0.02525 to 0.02419, saving model to adagrad\_best\_weights.h5
+Epoch 00026: val\_loss improved from 0.02419 to 0.02234, saving model to adagrad\_best\_weights.h5
+Epoch 00027: val\_loss improved from 0.02234 to 0.02200, saving model to adagrad\_best\_weights.h5
+Epoch 00028: val\_loss improved from 0.02200 to 0.02089, saving model to adagrad\_best\_weights.h5
+Epoch 00029: val\_loss did not improve
+Epoch 00030: val\_loss did not improve
+Epoch 00031: val\_loss improved from 0.02089 to 0.02036, saving model to adagrad\_best\_weights.h5
+Epoch 00032: val\_loss improved from 0.02036 to 0.02031, saving model to adagrad\_best\_weights.h5
+Epoch 00033: val\_loss did not improve
+Epoch 00034: val\_loss improved from 0.02031 to 0.01851, saving model to adagrad\_best\_weights.h5
+Epoch 00035: val\_loss improved from 0.01851 to 0.01788, saving model to adagrad\_best\_weights.h5
+Epoch 00036: val\_loss improved from 0.01788 to 0.01690, saving model to adagrad\_best\_weights.h5
+Epoch 00037: val\_loss improved from 0.01690 to 0.01530, saving model to adagrad\_best\_weights.h5
+Epoch 00038: val\_loss improved from 0.01530 to 0.01459, saving model to adagrad\_best\_weights.h5
+Epoch 00039: val\_loss did not improve
+=============
+
+Training using adadelta
+Epoch 00000: val\_loss improved from inf to 0.03768, saving model to adadelta\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.03768 to 0.01714, saving model to adadelta\_best\_weights.h5
+Epoch 00002: val\_loss improved from 0.01714 to 0.01414, saving model to adadelta\_best\_weights.h5
+Epoch 00003: val\_loss improved from 0.01414 to 0.01228, saving model to adadelta\_best\_weights.h5
+Epoch 00004: val\_loss improved from 0.01228 to 0.01063, saving model to adadelta\_best\_weights.h5
+Epoch 00005: val\_loss improved from 0.01063 to 0.01007, saving model to adadelta\_best\_weights.h5
+Epoch 00006: val\_loss did not improve
+Epoch 00007: val\_loss improved from 0.01007 to 0.00748, saving model to adadelta\_best\_weights.h5
+Epoch 00008: val\_loss did not improve
+Epoch 00009: val\_loss improved from 0.00748 to 0.00728, saving model to adadelta\_best\_weights.h5
+Epoch 00010: val\_loss improved from 0.00728 to 0.00649, saving model to adadelta\_best\_weights.h5
+Epoch 00011: val\_loss improved from 0.00649 to 0.00556, saving model to adadelta\_best\_weights.h5
+Epoch 00012: val\_loss did not improve
+Epoch 00013: val\_loss did not improve
+Epoch 00014: val\_loss did not improve
+Epoch 00015: val\_loss improved from 0.00556 to 0.00518, saving model to adadelta\_best\_weights.h5
+Epoch 00016: val\_loss did not improve
+Epoch 00017: val\_loss improved from 0.00518 to 0.00404, saving model to adadelta\_best\_weights.h5
+Epoch 00018: val\_loss did not improve
+Epoch 00019: val\_loss did not improve
+Epoch 00020: val\_loss did not improve
+Epoch 00021: val\_loss did not improve
+Epoch 00022: val\_loss did not improve
+Epoch 00023: val\_loss did not improve
+Epoch 00024: val\_loss did not improve
+Epoch 00025: val\_loss did not improve
+Epoch 00026: val\_loss improved from 0.00404 to 0.00391, saving model to adadelta\_best\_weights.h5
+Epoch 00027: val\_loss did not improve
+Epoch 00028: val\_loss did not improve
+Epoch 00029: val\_loss improved from 0.00391 to 0.00349, saving model to adadelta\_best\_weights.h5
+Epoch 00030: val\_loss did not improve
+Epoch 00031: val\_loss did not improve
+Epoch 00032: val\_loss did not improve
+Epoch 00033: val\_loss did not improve
+Epoch 00034: val\_loss did not improve
+Epoch 00035: val\_loss did not improve
+Epoch 00036: val\_loss did not improve
+Epoch 00037: val\_loss did not improve
+Epoch 00038: val\_loss improved from 0.00349 to 0.00321, saving model to adadelta\_best\_weights.h5
+Epoch 00039: val\_loss did not improve
+=============
+
+Training using adam
+Epoch 00000: val\_loss improved from inf to 0.06431, saving model to adam\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.06431 to 0.03240, saving model to adam\_best\_weights.h5
+Epoch 00002: val\_loss improved from 0.03240 to 0.01349, saving model to adam\_best\_weights.h5
+Epoch 00003: val\_loss improved from 0.01349 to 0.00621, saving model to adam\_best\_weights.h5
+Epoch 00004: val\_loss improved from 0.00621 to 0.00462, saving model to adam\_best\_weights.h5
+Epoch 00005: val\_loss improved from 0.00462 to 0.00403, saving model to adam\_best\_weights.h5
+Epoch 00006: val\_loss improved from 0.00403 to 0.00377, saving model to adam\_best\_weights.h5
+Epoch 00007: val\_loss did not improve
+Epoch 00008: val\_loss improved from 0.00377 to 0.00352, saving model to adam\_best\_weights.h5
+Epoch 00009: val\_loss improved from 0.00352 to 0.00343, saving model to adam\_best\_weights.h5
+Epoch 00010: val\_loss did not improve
+Epoch 00011: val\_loss improved from 0.00343 to 0.00336, saving model to adam\_best\_weights.h5
+Epoch 00012: val\_loss improved from 0.00336 to 0.00326, saving model to adam\_best\_weights.h5
+Epoch 00013: val\_loss did not improve
+Epoch 00014: val\_loss improved from 0.00326 to 0.00323, saving model to adam\_best\_weights.h5
+Epoch 00015: val\_loss improved from 0.00323 to 0.00319, saving model to adam\_best\_weights.h5
+Epoch 00016: val\_loss improved from 0.00319 to 0.00316, saving model to adam\_best\_weights.h5
+Epoch 00017: val\_loss improved from 0.00316 to 0.00309, saving model to adam\_best\_weights.h5
+Epoch 00018: val\_loss did not improve
+Epoch 00019: val\_loss improved from 0.00309 to 0.00306, saving model to adam\_best\_weights.h5
+Epoch 00020: val\_loss improved from 0.00306 to 0.00305, saving model to adam\_best\_weights.h5
+Epoch 00021: val\_loss improved from 0.00305 to 0.00297, saving model to adam\_best\_weights.h5
+Epoch 00022: val\_loss improved from 0.00297 to 0.00296, saving model to adam\_best\_weights.h5
+Epoch 00023: val\_loss improved from 0.00296 to 0.00293, saving model to adam\_best\_weights.h5
+Epoch 00024: val\_loss improved from 0.00293 to 0.00290, saving model to adam\_best\_weights.h5
+Epoch 00025: val\_loss improved from 0.00290 to 0.00289, saving model to adam\_best\_weights.h5
+Epoch 00026: val\_loss improved from 0.00289 to 0.00286, saving model to adam\_best\_weights.h5
+Epoch 00027: val\_loss improved from 0.00286 to 0.00284, saving model to adam\_best\_weights.h5
+Epoch 00028: val\_loss did not improve
+Epoch 00029: val\_loss improved from 0.00284 to 0.00278, saving model to adam\_best\_weights.h5
+Epoch 00030: val\_loss improved from 0.00278 to 0.00278, saving model to adam\_best\_weights.h5
+Epoch 00031: val\_loss improved from 0.00278 to 0.00278, saving model to adam\_best\_weights.h5
+Epoch 00032: val\_loss did not improve
+Epoch 00033: val\_loss did not improve
+Epoch 00034: val\_loss improved from 0.00278 to 0.00268, saving model to adam\_best\_weights.h5
+Epoch 00035: val\_loss improved from 0.00268 to 0.00267, saving model to adam\_best\_weights.h5
+Epoch 00036: val\_loss improved from 0.00267 to 0.00264, saving model to adam\_best\_weights.h5
+Epoch 00037: val\_loss improved from 0.00264 to 0.00262, saving model to adam\_best\_weights.h5
+Epoch 00038: val\_loss improved from 0.00262 to 0.00258, saving model to adam\_best\_weights.h5
+Epoch 00039: val\_loss improved from 0.00258 to 0.00256, saving model to adam\_best\_weights.h5
+=============
+
+Training using adamax
+Epoch 00000: val\_loss improved from inf to 0.07311, saving model to adamax\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.07311 to 0.03718, saving model to adamax\_best\_weights.h5
+Epoch 00002: val\_loss improved from 0.03718 to 0.01753, saving model to adamax\_best\_weights.h5
+Epoch 00003: val\_loss improved from 0.01753 to 0.00923, saving model to adamax\_best\_weights.h5
+Epoch 00004: val\_loss improved from 0.00923 to 0.00633, saving model to adamax\_best\_weights.h5
+Epoch 00005: val\_loss improved from 0.00633 to 0.00514, saving model to adamax\_best\_weights.h5
+Epoch 00006: val\_loss improved from 0.00514 to 0.00441, saving model to adamax\_best\_weights.h5
+Epoch 00007: val\_loss improved from 0.00441 to 0.00433, saving model to adamax\_best\_weights.h5
+Epoch 00008: val\_loss improved from 0.00433 to 0.00414, saving model to adamax\_best\_weights.h5
+Epoch 00009: val\_loss improved from 0.00414 to 0.00402, saving model to adamax\_best\_weights.h5
+Epoch 00010: val\_loss improved from 0.00402 to 0.00392, saving model to adamax\_best\_weights.h5
+Epoch 00011: val\_loss improved from 0.00392 to 0.00388, saving model to adamax\_best\_weights.h5
+Epoch 00012: val\_loss improved from 0.00388 to 0.00377, saving model to adamax\_best\_weights.h5
+Epoch 00013: val\_loss improved from 0.00377 to 0.00349, saving model to adamax\_best\_weights.h5
+Epoch 00014: val\_loss improved from 0.00349 to 0.00343, saving model to adamax\_best\_weights.h5
+Epoch 00015: val\_loss improved from 0.00343 to 0.00319, saving model to adamax\_best\_weights.h5
+Epoch 00016: val\_loss did not improve
+Epoch 00017: val\_loss improved from 0.00319 to 0.00304, saving model to adamax\_best\_weights.h5
+Epoch 00018: val\_loss did not improve
+Epoch 00019: val\_loss improved from 0.00304 to 0.00294, saving model to adamax\_best\_weights.h5
+Epoch 00020: val\_loss improved from 0.00294 to 0.00289, saving model to adamax\_best\_weights.h5
+Epoch 00021: val\_loss did not improve
+Epoch 00022: val\_loss improved from 0.00289 to 0.00278, saving model to adamax\_best\_weights.h5
+Epoch 00023: val\_loss improved from 0.00278 to 0.00274, saving model to adamax\_best\_weights.h5
+Epoch 00024: val\_loss improved from 0.00274 to 0.00271, saving model to adamax\_best\_weights.h5
+Epoch 00025: val\_loss did not improve
+Epoch 00026: val\_loss did not improve
+Epoch 00027: val\_loss improved from 0.00271 to 0.00269, saving model to adamax\_best\_weights.h5
+Epoch 00028: val\_loss improved from 0.00269 to 0.00249, saving model to adamax\_best\_weights.h5
+Epoch 00029: val\_loss improved from 0.00249 to 0.00249, saving model to adamax\_best\_weights.h5
+Epoch 00030: val\_loss improved from 0.00249 to 0.00235, saving model to adamax\_best\_weights.h5
+Epoch 00031: val\_loss improved from 0.00235 to 0.00230, saving model to adamax\_best\_weights.h5
+Epoch 00032: val\_loss did not improve
+Epoch 00033: val\_loss improved from 0.00230 to 0.00221, saving model to adamax\_best\_weights.h5
+Epoch 00034: val\_loss did not improve
+Epoch 00035: val\_loss did not improve
+Epoch 00036: val\_loss improved from 0.00221 to 0.00211, saving model to adamax\_best\_weights.h5
+Epoch 00037: val\_loss did not improve
+Epoch 00038: val\_loss improved from 0.00211 to 0.00208, saving model to adamax\_best\_weights.h5
+Epoch 00039: val\_loss did not improve
+=============
+
+Training using nadam
+Epoch 00000: val\_loss improved from inf to 0.11854, saving model to nadam\_best\_weights.h5
+Epoch 00001: val\_loss improved from 0.11854 to 0.09228, saving model to nadam\_best\_weights.h5
+Epoch 00002: val\_loss improved from 0.09228 to 0.06165, saving model to nadam\_best\_weights.h5
+Epoch 00003: val\_loss improved from 0.06165 to 0.04405, saving model to nadam\_best\_weights.h5
+Epoch 00004: val\_loss improved from 0.04405 to 0.03342, saving model to nadam\_best\_weights.h5
+Epoch 00005: val\_loss improved from 0.03342 to 0.02341, saving model to nadam\_best\_weights.h5
+Epoch 00006: val\_loss improved from 0.02341 to 0.01586, saving model to nadam\_best\_weights.h5
+Epoch 00007: val\_loss improved from 0.01586 to 0.01247, saving model to nadam\_best\_weights.h5
+Epoch 00008: val\_loss improved from 0.01247 to 0.00977, saving model to nadam\_best\_weights.h5
+Epoch 00009: val\_loss improved from 0.00977 to 0.00851, saving model to nadam\_best\_weights.h5
+Epoch 00010: val\_loss improved from 0.00851 to 0.00773, saving model to nadam\_best\_weights.h5
+Epoch 00011: val\_loss improved from 0.00773 to 0.00696, saving model to nadam\_best\_weights.h5
+Epoch 00012: val\_loss did not improve
+Epoch 00013: val\_loss did not improve
+Epoch 00014: val\_loss improved from 0.00696 to 0.00663, saving model to nadam\_best\_weights.h5
+Epoch 00015: val\_loss improved from 0.00663 to 0.00632, saving model to nadam\_best\_weights.h5
+Epoch 00016: val\_loss improved from 0.00632 to 0.00599, saving model to nadam\_best\_weights.h5
+Epoch 00017: val\_loss improved from 0.00599 to 0.00560, saving model to nadam\_best\_weights.h5
+Epoch 00018: val\_loss improved from 0.00560 to 0.00517, saving model to nadam\_best\_weights.h5
+Epoch 00019: val\_loss did not improve
+Epoch 00020: val\_loss improved from 0.00517 to 0.00485, saving model to nadam\_best\_weights.h5
+Epoch 00021: val\_loss did not improve
+Epoch 00022: val\_loss did not improve
+Epoch 00023: val\_loss did not improve
+Epoch 00024: val\_loss improved from 0.00485 to 0.00453, saving model to nadam\_best\_weights.h5
+Epoch 00025: val\_loss did not improve
+Epoch 00026: val\_loss did not improve
+Epoch 00027: val\_loss improved from 0.00453 to 0.00440, saving model to nadam\_best\_weights.h5
+Epoch 00028: val\_loss improved from 0.00440 to 0.00438, saving model to nadam\_best\_weights.h5
+Epoch 00029: val\_loss did not improve
+Epoch 00030: val\_loss did not improve
+Epoch 00031: val\_loss improved from 0.00438 to 0.00426, saving model to nadam\_best\_weights.h5
+Epoch 00032: val\_loss improved from 0.00426 to 0.00406, saving model to nadam\_best\_weights.h5
+Epoch 00033: val\_loss did not improve
+Epoch 00034: val\_loss did not improve
+Epoch 00035: val\_loss did not improve
+Epoch 00036: val\_loss did not improve
+Epoch 00037: val\_loss did not improve
+Epoch 00038: val\_loss did not improve
+Epoch 00039: val\_loss did not improve
+=============
+
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-7-visualize-the-loss-and-test-predictions}{%
+\subsection{Step 7: Visualize the Loss and Test
+Predictions}\label{step-7-visualize-the-loss-and-test-predictions}}
+
+    \hypertarget{implementation-answer-a-few-questions-and-visualize-the-loss}{%
+\subsubsection{(IMPLEMENTATION) Answer a few questions and visualize the
+loss}\label{implementation-answer-a-few-questions-and-visualize-the-loss}}
+
+\textbf{Question 1:} Outline the steps you took to get to your final
+neural network architecture and your reasoning at each step.
+
+\textbf{Answer:} I used the standard convolutional network architecture
+with conv2D layers followed by maxpooling layers, which was shown to be
+a good combination. I started with 32 kernels layer, followed by 64
+layer. Overall this combination provided a 4 times reduction in spatial
+dimensions and 64 depth features at the end of convolutional part of the
+network. It was followed by flattening layer prior to passing it through
+densely connected layers. I then added a fully connected layer with relu
+activation to help finding connections between flattened convolutional
+features and final targets. I've chosen it to be relatively small, just
+of size of 64 nodes, which is roughly 2 times larger than the size of
+the target vector. Such last dense layers have a very large impact on
+the total number of parameters in a network, so I didn't want it to have
+too many nodes. The final layer is just a linear dense layer to convert
+the 64 features to required 30 targets.
+
+\textbf{Question 2:} Defend your choice of optimizer. Which optimizers
+did you test, and how did you determine which worked best?
+
+\textbf{Answer:} I tested all listed optimizers (see the graph below).
+Among all of them adam and rmsprop achieve the best validation loss
+(MSE), although the difference is not dramatic after 40 epochs. RMSprop,
+however, manages to do it in the least amount of time, so my conclusion
+is that it is the most suited for this particular regression task.
+
+Use the code cell below to plot the training and validation loss of your
+neural network. You may find
+\href{http://machinelearningmastery.com/display-deep-learning-model-training-history-in-keras/}{this
+resource} useful.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO: Visualize the training and validation loss of your neural network}
+         
+         \PY{n}{opts} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sgd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adagrad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adadelta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adamax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nadam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} load results to avoid re\PYZhy{}fitting everytime after jupyter restart}
+         \PY{k+kn}{import} \PY{n+nn}{pickle}
+         \PY{n}{train\PYZus{}losses} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}losses.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{val\PYZus{}losses} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}losses.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{times} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{times.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{left}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{opts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} this is for axis sharing}
+             \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{opts}\PY{p}{)}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{opts}\PY{p}{)}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{train\PYZus{}losses}\PY{p}{[}\PY{n}{opts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{n}{val\PYZus{}losses}\PY{p}{[}\PY{n}{opts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, time }\PY{l+s+si}{\PYZob{}:5.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{opts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{times}\PY{p}{[}\PY{n}{opts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Question 3:} Do you notice any evidence of overfitting or
+underfitting in the above plot? If so, what steps have you taken to
+improve your model? Note that slight overfitting or underfitting will
+not hurt your chances of a successful submission, as long as you have
+attempted some solutions towards improving your model (such as
+\emph{regularization, dropout, increased/decreased number of layers,
+etc}).
+
+\textbf{Answer:} I don't see evidence of major over or underfitting in
+any these plots. There is no significant difference between train and
+validation loss. Both curves decrease fairly monotonically and
+equidistantly in most of the cases. The Adam optimizer shows some
+separation between train and validation losses after 30 epochs, but at
+that time the validation loss is already at the lowest value among all
+optimizers, so it is likely that 30-35 epochs is the right number for
+this particular architecture and dataset. I have also verified the
+architecture with Dropout after every MaxPool layer and it resulted in a
+larger gap between train and validation losses after \textasciitilde{}30
+epochs. In addition to this the validation loss with Dropout(0.2) layers
+was higher at 30 epochs than without them.
+
+    \hypertarget{visualize-a-subset-of-the-test-predictions}{%
+\subsubsection{Visualize a Subset of the Test
+Predictions}\label{visualize-a-subset-of-the-test-predictions}}
+
+Execute the code cell below to visualize your model's predicted
+keypoints on a subset of the testing images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{model}\PY{o}{.}\PY{n}{load\PYZus{}weights}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmsprop\PYZus{}my\PYZus{}model.h5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{left}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{right}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{bottom}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{top}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{xticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plot\PYZus{}data}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{ax}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\hypertarget{step-8-complete-the-pipeline}{%
+\subsection{Step 8: Complete the
+pipeline}\label{step-8-complete-the-pipeline}}
+
+With the work you did in Sections 1 and 2 of this notebook, along with
+your freshly trained facial keypoint detector, you can now complete the
+full pipeline. That is given a color image containing a person or
+persons you can now
+
+\begin{itemize}
+\tightlist
+\item
+  Detect the faces in this image automatically using OpenCV
+\item
+  Predict the facial keypoints in each face detected in the image
+\item
+  Paint predicted keypoints on each face detected
+\end{itemize}
+
+In this Subsection you will do just this!
+
+    \hypertarget{implementation-facial-keypoints-detector}{%
+\subsubsection{(IMPLEMENTATION) Facial Keypoints
+Detector}\label{implementation-facial-keypoints-detector}}
+
+Use the OpenCV face detection functionality you built in previous
+Sections to expand the functionality of your keypoints detector to color
+images with arbitrary size. Your function should perform the following
+steps
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Accept a color image.
+\item
+  Convert the image to grayscale.
+\item
+  Detect and crop the face contained in the image.
+\item
+  Locate the facial keypoints in the cropped image.
+\item
+  Overlay the facial keypoints in the original (color, uncropped) image.
+\end{enumerate}
+
+\textbf{Note}: step 4 can be the trickiest because remember your
+convolutional network is only trained to detect facial keypoints in
+\(96 \times 96\) grayscale images where each pixel was normalized to lie
+in the interval \([0,1]\), and remember that each facial keypoint was
+normalized during training to the interval \([-1,1]\). This means -
+practically speaking - to paint detected keypoints onto a test face you
+need to perform this same pre-processing to your candidate face - that
+is after detecting it you should resize it to \(96 \times 96\) and
+normalize its values before feeding it into your facial keypoint
+detector. To be shown correctly on the original image the output
+keypoints from your detector then need to be shifted and re-normalized
+from the interval \([-1,1]\) to the width and height of your detected
+face.
+
+When complete you should be able to produce example images like the one
+below
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} function to detect and draw faces and facepoints}
+         \PY{k}{def} \PY{n+nf}{facepoints\PYZus{}detection}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} load model and face\PYZus{}cascade}
+             \PY{n}{model}\PY{o}{.}\PY{n}{load\PYZus{}weights}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmsprop\PYZus{}my\PYZus{}model.h5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Face detection \PYZhy{} Haar on gray image}
+             \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+             \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} get the cropped faces}
+             \PY{n}{cropped\PYZus{}faces} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+                 \PY{n}{cropped\PYZus{}faces}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gray}\PY{p}{[}\PY{n}{y}\PY{p}{:}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} resize cropped faces and normalize pixels}
+             \PY{n}{resized\PYZus{}cropped\PYZus{}faces} \PY{o}{=} \PY{p}{[}\PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{\PYZus{}f}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{96}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{255} \PY{k}{for} \PY{n}{\PYZus{}f} \PY{o+ow}{in} \PY{n}{cropped\PYZus{}faces}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} reshape to right format and prepare to feed to the model}
+             \PY{n}{X\PYZus{}faces} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}f} \PY{o+ow}{in} \PY{n}{resized\PYZus{}cropped\PYZus{}faces}\PY{p}{]}\PY{p}{)}
+             \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shape of X\PYZus{}faces }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}faces}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} run through the facepoints model}
+             \PY{c+c1}{\PYZsh{} do only if faces have been detected \PYZhy{} to work with streaming version}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{y\PYZus{}faces} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}faces}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shape of y\PYZus{}faces }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{y\PYZus{}faces}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} \PYZsh{} plot the intermediate result to verify}
+             \PY{c+c1}{\PYZsh{} fig = plt.figure(figsize=(10,5))}
+             \PY{c+c1}{\PYZsh{} for i in range(len(faces)):}
+             \PY{c+c1}{\PYZsh{}     ax = fig.add\PYZus{}subplot(1, len(faces), i + 1, xticks=[], yticks=[])}
+             \PY{c+c1}{\PYZsh{}     ax.set\PYZus{}title(\PYZsq{}intermediate 96x96\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}     plot\PYZus{}data(X\PYZus{}cropped\PYZus{}faces[i], y\PYZus{}faces[i], ax)}
+         
+                 \PY{c+c1}{\PYZsh{} reconstruct y\PYZus{}faces to 96x96 size and upscale to original image}
+                 \PY{n}{real\PYZus{}faces} \PY{o}{=} \PY{p}{(}\PY{n}{y\PYZus{}faces}\PY{o}{*}\PY{l+m+mi}{48}\PY{o}{+}\PY{l+m+mi}{48}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{\PYZus{}f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{*}\PY{n}{cropped\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{96}
+                     \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{*}\PY{n}{cropped\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{96}
+         
+             \PY{c+c1}{\PYZsh{} \PYZsh{} plot the intermediate result to verify}
+             \PY{c+c1}{\PYZsh{} fig = plt.figure(figsize=(10,5))}
+             \PY{c+c1}{\PYZsh{} for i in range(len(faces)):}
+             \PY{c+c1}{\PYZsh{}     ax = fig.add\PYZus{}subplot(1, len(faces), i + 1, xticks=[], yticks=[])}
+             \PY{c+c1}{\PYZsh{}     ax.set\PYZus{}title(\PYZsq{}intermediate original\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}     ax.imshow(cropped\PYZus{}faces[i], cmap=\PYZsq{}gray\PYZsq{})}
+             \PY{c+c1}{\PYZsh{}     ax.scatter(real\PYZus{}faces[i][0::2], }
+             \PY{c+c1}{\PYZsh{}         real\PYZus{}faces[i][1::2], }
+             \PY{c+c1}{\PYZsh{}         marker=\PYZsq{}o\PYZsq{}, }
+             \PY{c+c1}{\PYZsh{}         c=\PYZsq{}c\PYZsq{}, }
+             \PY{c+c1}{\PYZsh{}         s=40)}
+         
+             \PY{c+c1}{\PYZsh{} Make a copy of the orginal image to draw face detections on}
+             \PY{n}{image\PYZus{}copy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Get the bounding box for each detected face}
+             \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Add a red bounding box to the detections image}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{image\PYZus{}copy}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{,}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} now draw circles where features are with offset by face coordinate}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{\PYZus{}i}\PY{p}{,} \PY{n}{coords} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{\PYZus{}idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{img}\PY{o}{=}\PY{n}{image\PYZus{}copy}\PY{p}{,}
+                                    \PY{n}{center}\PY{o}{=}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}i}\PY{p}{]}\PY{p}{[}\PY{n}{\PYZus{}idx}\PY{p}{]}\PY{o}{+}\PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}i}\PY{p}{]}\PY{p}{[}\PY{n}{\PYZus{}idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                    \PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{n}{thickness}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{image\PYZus{}copy}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} Load in color image for face detection}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/obamas4.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Convert the image to RGB colorspace}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} TODO: Use the face detection code we saw in Section 1 with your trained conv\PYZhy{}net }
+         \PY{c+c1}{\PYZsh{}\PYZsh{} TODO : Paint the predicted keypoints on the test image}
+         
+         \PY{n}{facepoints\PYZus{}image} \PY{o}{=} \PY{n}{facepoints\PYZus{}detection}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} Display the image with the face boxes and facepoints}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image with Detections}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{facepoints\PYZus{}image}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shape of X\_faces (2, 96, 96, 1)
+Shape of y\_faces (2, 30)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} <matplotlib.image.AxesImage at 0x11d9d3978>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{optional-further-directions---add-a-filter-using-facial-keypoints-to-your-laptop-camera}{%
+\subsubsection{(Optional) Further Directions - add a filter using facial
+keypoints to your laptop
+camera}\label{optional-further-directions---add-a-filter-using-facial-keypoints-to-your-laptop-camera}}
+
+Now you can add facial keypoint detection to your laptop camera - as
+illustrated in the gif below.
+
+The next Python cell contains the basic laptop video camera function
+used in the previous optional video exercises. Combine it with the
+functionality you developed for keypoint detection and marking in the
+previous exercise and you should be good to go!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k+kn}{import} \PY{n+nn}{cv2}
+         \PY{k+kn}{import} \PY{n+nn}{time} 
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{load\PYZus{}model}
+         
+         \PY{k}{def} \PY{n+nf}{laptop\PYZus{}camera\PYZus{}go}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Create instance of video capturer}
+             \PY{n}{cv2}\PY{o}{.}\PY{n}{namedWindow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{facepoints detection activated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{vc} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoCapture}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Try to get the first frame}
+             \PY{k}{if} \PY{n}{vc}\PY{o}{.}\PY{n}{isOpened}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{rval} \PY{o}{=} \PY{k+kc}{False}
+             
+             \PY{c+c1}{\PYZsh{} Keep the video stream open}
+             \PY{k}{while} \PY{n}{rval}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} just run the tested model on every frame}
+                 \PY{n}{frame} \PY{o}{=} \PY{n}{facepoints\PYZus{}detection}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Plot the image from camera with all the face and eye detections marked}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{facepoints}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} Exit functionality \PYZhy{} press any key to exit laptop video}
+                 \PY{n}{key} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{key} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{} Exit by pressing any key}
+                     \PY{c+c1}{\PYZsh{} Destroy windows }
+                     \PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} Make sure window closes on OSx}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{k}{return}
+                 
+                 \PY{c+c1}{\PYZsh{} Read next frame}
+                 \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)}             \PY{c+c1}{\PYZsh{} control framerate for computation \PYZhy{} default 20 frames per sec}
+                 \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{} Run your keypoint face painter}
+         \PY{n}{laptop\PYZus{}camera\PYZus{}go}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Note}: developed and tested locally. Running on AWS GPU instance
+crashes in my case. The only issue I've observed is that the facepoint
+for bottom lip is not perfect and does not always detect open mouth well
+enough.
+
+    \hypertarget{optional-further-directions---add-a-filter-using-facial-keypoints}{%
+\subsubsection{(Optional) Further Directions - add a filter using facial
+keypoints}\label{optional-further-directions---add-a-filter-using-facial-keypoints}}
+
+Using your freshly minted facial keypoint detector pipeline you can now
+do things like add fun filters to a person's face automatically. In this
+optional exercise you can play around with adding sunglasses
+automatically to each individual's face in an image as shown in a
+demonstration image below.
+
+To produce this effect an image of a pair of sunglasses shown in the
+Python cell below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} Load in sunglasses image \PYZhy{} note the usage of the special option}
+         \PY{c+c1}{\PYZsh{} cv2.IMREAD\PYZus{}UNCHANGED, this option is used because the sunglasses }
+         \PY{c+c1}{\PYZsh{} image has a 4th channel that allows us to control how transparent each pixel in the image is}
+         \PY{n}{sunglasses} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{images/sunglasses\PYZus{}4.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{IMREAD\PYZus{}UNCHANGED}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the image}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{sunglasses}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_80_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This image is placed over each individual's face using the detected eye
+points to determine the location of the sunglasses, and eyebrow points
+to determine the size that the sunglasses should be for each person (one
+could also use the nose point to determine this).
+
+Notice that this image actually has \emph{4 channels}, not just 3.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} Print out the shape of the sunglasses image}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sunglasses image has shape: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{sunglasses}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The sunglasses image has shape: (1123, 3064, 4)
+
+    \end{Verbatim}
+
+    It has the usual red, blue, and green channels any color image has, with
+the 4th channel representing the transparency level of each pixel in the
+image. Here's how the transparency channel works: the lower the value,
+the more transparent the pixel will become. The lower bound (completely
+transparent) is zero here, so any pixels set to 0 will not be seen.
+
+This is how we can place this image of sunglasses on someone's face and
+still see the area around of their face where the sunglasses lie -
+because these pixels in the sunglasses image have been made completely
+transparent.
+
+Lets check out the alpha channel of our sunglasses image in the next
+Python cell. Note because many of the pixels near the boundary are
+transparent we'll need to explicitly print out non-zero values if we
+want to see them.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} Print out the sunglasses transparency (alpha) channel}
+         \PY{n}{alpha\PYZus{}channel} \PY{o}{=} \PY{n}{sunglasses}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{the alpha channel here looks like}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{alpha\PYZus{}channel}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Just to double check that there are indeed non\PYZhy{}zero values}
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s find and print out every value greater than zero}
+         \PY{n}{values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{alpha\PYZus{}channel} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ the non\PYZhy{}zero values of the alpha channel look like}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+the alpha channel here looks like
+[[0 0 0 {\ldots} 0 0 0]
+ [0 0 0 {\ldots} 0 0 0]
+ [0 0 0 {\ldots} 0 0 0]
+ {\ldots}
+ [0 0 0 {\ldots} 0 0 0]
+ [0 0 0 {\ldots} 0 0 0]
+ [0 0 0 {\ldots} 0 0 0]]
+
+ the non-zero values of the alpha channel look like
+(array([  17,   17,   17, {\ldots}, 1109, 1109, 1109]), array([ 687,  688,  689, {\ldots}, 2376, 2377, 2378]))
+
+    \end{Verbatim}
+
+    This means that when we place this sunglasses image on top of another
+image, we can use the transparency channel as a filter to tell us which
+pixels to overlay on a new image (only the non-transparent ones with
+values greater than zero).
+
+One last thing: it's helpful to understand which keypoint belongs to the
+eyes, mouth, etc. So, in the image below, we also display the index of
+each facial keypoint directly on the image so that you can tell which
+keypoints are for the eyes, eyebrows, etc.
+
+With this information, you're well on your way to completing this
+filtering task! See if you can place the sunglasses automatically on the
+individuals in the image loaded in / shown in the next Python cell.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} Load in color image for face detection}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{images/obamas4.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Convert the image to RGB colorspace}
+         \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the image}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} <matplotlib.image.AxesImage at 0x1291b1dd8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} (Optional) TODO: Use the face detection code we saw in Section 1 with your trained conv\PYZhy{}net to put}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} sunglasses on the individuals in our test image}
+         
+         \PY{k}{def} \PY{n+nf}{draw\PYZus{}sunglasses}\PY{p}{(}\PY{n}{image}\PY{p}{)}\PY{p}{:}
+             \PY{n}{model} \PY{o}{=} \PY{n}{load\PYZus{}model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop\PYZus{}my\PYZus{}model.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{face\PYZus{}cascade} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{CascadeClassifier}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detector\PYZus{}architectures/haarcascade\PYZus{}frontalface\PYZus{}default.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Face detection \PYZhy{} Haar on gray image}
+             \PY{n}{gray} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+             \PY{n}{faces} \PY{o}{=} \PY{n}{face\PYZus{}cascade}\PY{o}{.}\PY{n}{detectMultiScale}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Make a copy of the orginal image to draw face detections on}
+             \PY{n}{image\PYZus{}copy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} get the cropped faces}
+             \PY{n}{cropped\PYZus{}faces} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{w}\PY{p}{,}\PY{n}{h}\PY{p}{)} \PY{o+ow}{in} \PY{n}{faces}\PY{p}{:}
+                 \PY{n}{cropped\PYZus{}faces}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{gray}\PY{p}{[}\PY{n}{y}\PY{p}{:}\PY{n}{y}\PY{o}{+}\PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{+}\PY{n}{w}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} resize cropped faces and normalize pixels}
+             \PY{n}{resized\PYZus{}cropped\PYZus{}faces} \PY{o}{=} \PY{p}{[}\PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{\PYZus{}f}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{96}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{255} \PY{k}{for} \PY{n}{\PYZus{}f} \PY{o+ow}{in} \PY{n}{cropped\PYZus{}faces}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} reshape to right format and feed to model}
+             \PY{n}{X\PYZus{}faces} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{96}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}f} \PY{o+ow}{in} \PY{n}{resized\PYZus{}cropped\PYZus{}faces}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} once again wrap the model part in conditional statement to work with streaming version}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{y\PYZus{}faces} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}faces}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} reconstruct y\PYZus{}faces to 96x96 size and upscale to original image}
+                 \PY{n}{real\PYZus{}faces} \PY{o}{=} \PY{p}{(}\PY{n}{y\PYZus{}faces}\PY{o}{*}\PY{l+m+mi}{48}\PY{o}{+}\PY{l+m+mi}{48}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{\PYZus{}f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{*}\PY{n}{cropped\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{96}
+                     \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{*}\PY{n}{cropped\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{96}
+             
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Sunglass fitting section}
+         \PY{l+s+sd}{    will be called only if len(faces) \PYZgt{} 0}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c+c1}{\PYZsh{} fit sunglasses}
+             \PY{k}{for} \PY{n}{\PYZus{}f}\PY{p}{,} \PY{n}{coords} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{faces}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} auxiliary vars}
+                 \PY{n}{xs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{[}\PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{ys} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{[}\PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{19}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+                 \PY{n}{xe} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{[}\PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{ye} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{[}\PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}faces}\PY{p}{[}\PY{n}{\PYZus{}f}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{} some aesthetical adjustments}
+                 \PY{n}{height} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{ye} \PY{o}{\PYZhy{}} \PY{n}{ys}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{1.8}\PY{p}{)}
+                 \PY{n}{width} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{xe} \PY{o}{\PYZhy{}} \PY{n}{xs}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{1.14}\PY{p}{)}
+                 \PY{n}{xs} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{xs} \PY{o}{\PYZhy{}} \PY{n}{width} \PY{o}{*} \PY{l+m+mf}{0.07}\PY{p}{)}
+                 \PY{n}{ys} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{ys} \PY{o}{\PYZhy{}} \PY{n}{height} \PY{o}{*} \PY{l+m+mf}{0.07}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} resize sunglasses}
+                 \PY{n}{resized} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{sunglasses}\PY{p}{,} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} take alpha as a mask and inverse mask}
+                 \PY{n}{alpha} \PY{o}{=} \PY{n}{resized}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}
+                 \PY{n}{alpha\PYZus{}inv} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{bitwise\PYZus{}not}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} remove alpha from sunglasses}
+                 \PY{n}{resized} \PY{o}{=} \PY{n}{resized}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{} create a ROI}
+                 \PY{n}{roi} \PY{o}{=} \PY{n}{image\PYZus{}copy}\PY{p}{[}\PY{n}{ys}\PY{p}{:}\PY{n}{ys}\PY{o}{+}\PY{n}{height}\PY{p}{,} \PY{n}{xs}\PY{p}{:}\PY{n}{xs}\PY{o}{+}\PY{n}{width}\PY{p}{]}
+         
+                 \PY{c+c1}{\PYZsh{} Now black\PYZhy{}out the area of glasses in ROI}
+                 \PY{n}{img1\PYZus{}bg} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{bitwise\PYZus{}and}\PY{p}{(}\PY{n}{roi}\PY{p}{,}\PY{n}{roi}\PY{p}{,}\PY{n}{mask} \PY{o}{=} \PY{n}{alpha\PYZus{}inv}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Take only positive alpha from sunglass image}
+                 \PY{n}{img2\PYZus{}fg} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{bitwise\PYZus{}and}\PY{p}{(}\PY{n}{resized}\PY{p}{,}\PY{n}{resized}\PY{p}{,}\PY{n}{mask} \PY{o}{=} \PY{n}{alpha}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Put it in ROI and modify the main image}
+                 \PY{n}{dst} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{img1\PYZus{}bg}\PY{p}{,}\PY{n}{img2\PYZus{}fg}\PY{p}{)}
+                 \PY{n}{image\PYZus{}copy}\PY{p}{[}\PY{n}{ys}\PY{p}{:}\PY{n}{ys}\PY{o}{+}\PY{n}{height}\PY{p}{,} \PY{n}{xs}\PY{p}{:}\PY{n}{xs}\PY{o}{+}\PY{n}{width}\PY{p}{]} \PY{o}{=} \PY{n}{dst}
+             
+             \PY{k}{return} \PY{n}{image\PYZus{}copy}
+         
+         \PY{c+c1}{\PYZsh{} for \PYZus{}i, coords in enumerate(faces):}
+         \PY{c+c1}{\PYZsh{}     ax1.scatter(real\PYZus{}faces[\PYZus{}i][0::2]+coords[0],}
+         \PY{c+c1}{\PYZsh{}                 real\PYZus{}faces[\PYZus{}i][1::2]+coords[1],}
+         \PY{c+c1}{\PYZsh{}                 marker=\PYZsq{}o\PYZsq{}, c=\PYZsq{}c\PYZsq{}, s=40)}
+         \PY{c+c1}{\PYZsh{}     for \PYZus{}idx in range(0, real\PYZus{}faces.shape[1], 2):}
+         \PY{c+c1}{\PYZsh{}         ax1.annotate((\PYZus{}idx, \PYZus{}idx+1), (real\PYZus{}faces[\PYZus{}i][\PYZus{}idx]+coords[0], real\PYZus{}faces[\PYZus{}i][\PYZus{}idx+1]+coords[1]))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{image\PYZus{}with\PYZus{}sunglasses} \PY{o}{=} \PY{n}{draw\PYZus{}sunglasses}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Display the image with the face boxes and facepoints}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image with Sunglasses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image\PYZus{}with\PYZus{}sunglasses}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} <matplotlib.image.AxesImage at 0x15e832828>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{optional-further-directions---add-a-filter-using-facial-keypoints-to-your-laptop-camera}{%
+\subsubsection{(Optional) Further Directions - add a filter using facial
+keypoints to your laptop
+camera}\label{optional-further-directions---add-a-filter-using-facial-keypoints-to-your-laptop-camera}}
+
+Now you can add the sunglasses filter to your laptop camera - as
+illustrated in the gif below.
+
+The next Python cell contains the basic laptop video camera function
+used in the previous optional video exercises. Combine it with the
+functionality you developed for adding sunglasses to someone's face in
+the previous optional exercise and you should be good to go!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k+kn}{import} \PY{n+nn}{cv2}
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{def} \PY{n+nf}{laptop\PYZus{}camera\PYZus{}go}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Create instance of video capturer}
+             \PY{n}{cv2}\PY{o}{.}\PY{n}{namedWindow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sunglass filter is activated}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{vc} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{VideoCapture}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Try to get the first frame}
+             \PY{k}{if} \PY{n}{vc}\PY{o}{.}\PY{n}{isOpened}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{rval} \PY{o}{=} \PY{k+kc}{False}
+             
+             \PY{c+c1}{\PYZsh{} Keep the video stream open}
+             \PY{k}{while} \PY{n}{rval}\PY{p}{:}
+         
+                 \PY{c+c1}{\PYZsh{} just call a tested function}
+                 \PY{n}{frame} \PY{o}{=} \PY{n}{draw\PYZus{}sunglasses}\PY{p}{(}\PY{n}{frame}\PY{p}{)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Like a boss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Exit functionality \PYZhy{} press any key to exit laptop video}
+                 \PY{n}{key} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{key} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{} Exit by pressing any key}
+                     \PY{c+c1}{\PYZsh{} Destroy windows }
+                     \PY{n}{cv2}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+                     
+                     \PY{c+c1}{\PYZsh{} Make sure window closes on OSx}
+                     \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{cv2}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{k}{return}
+                 
+                 \PY{c+c1}{\PYZsh{} Read next frame}
+                 \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{)}             \PY{c+c1}{\PYZsh{} control framerate for computation \PYZhy{} default 20 frames per sec}
+                 \PY{n}{rval}\PY{p}{,} \PY{n}{frame} \PY{o}{=} \PY{n}{vc}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{} Run sunglasses painter}
+         \PY{n}{laptop\PYZus{}camera\PYZus{}go}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Note}: tested locally.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
